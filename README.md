@@ -28,11 +28,11 @@ Prerequisites:
 Build Instructions
 ===================
 
-- Download the latest version of the tar file
+- Download the latest version of the package
 
   wget https://github.com/sbazaz/uldaq/releases/latest
   
-- Extract the downloaded package
+- Extract the downloaded tar file
   
   tar -xvjf libuldaq-x.x.x.tar.bz2
   
