@@ -10,7 +10,19 @@ Prerequisites:
   
   The following describes how above prerequisites can be installed on diffrent Linux distributions
   
-  - Debian-based systems such as Ubuntu, Raspbian
+  - Debian-based linux systems such as Ubuntu, Raspbian
+  
     - sudo apt-get install gcc g++ make
     - sudo apt-get install libusb-1.0-0-dev
+
+  - Red Hat-based linux systems such as Fedora, CentOS
+  
+    - sudo yum install gcc gcc-c++ make
+    - sudo yum install libusbx-devel
+    
+  - OpenSUSE 
+  
+    - sudo zypper install gcc gcc-c++ make
+    - sudo zypper install libusb-devel
+
 
