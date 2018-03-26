@@ -28,9 +28,9 @@ Prerequisites:
 Build Instructions
 ===================
 
-- Download the latest version of the package
+- Download the latest version of the tar file
 
-  wget https://<span></span>github.com/sbazaz/uldaq/releases/download/vx.x.x/libuldaq-x.x.x.tar.bz2
+  wget https://github.com/sbazaz/uldaq/releases/latest
   
 - Extract the downloaded package
   tar -xvjf libuldaq-x.x.x.tar.bz2
