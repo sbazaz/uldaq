@@ -29,7 +29,7 @@ Build Instructions
 ===================
 
 - Download the latest version of the package
-  wget https://github.com/sbazaz/uldaq/releases/download/vx.x.x/libuldaq-x.x.x.tar.bz2
+   wget https://github.com/sbazaz/uldaq/releases/download/vx.x.x/libuldaq-x.x.x.tar.bz2
   
 - Extract the downloaded package
   tar -xvjf libuldaq-x.x.x.tar.bz2
