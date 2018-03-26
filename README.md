@@ -12,6 +12,6 @@ Prerequisites:
   
   - Debian-based systems such as Ubuntu, Raspbian
   
-  sudo apt-get install gcc g++ make
-  sudo apt-get install libusb-1.0-0-dev
+  - sudo apt-get install gcc g++ make
+  - sudo apt-get install libusb-1.0-0-dev
 
