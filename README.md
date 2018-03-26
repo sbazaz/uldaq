@@ -33,14 +33,18 @@ Build Instructions
   wget https://github.com/sbazaz/uldaq/releases/latest
   
 - Extract the downloaded package
+  
   tar -xvjf libuldaq-x.x.x.tar.bz2
   
 - Change the folder
+  
   cd libuldaq-x.x.x
   
 - Run the following commands to build and the package
-  - ./configure & make
-  - sudo make install
+  
+  ./configure & make
+  
+   sudo make install
   
 - The examples are located in the examples folder and ready to run.
   
