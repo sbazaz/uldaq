@@ -6,4 +6,4 @@ Prerequisites:
 ---------------
 
   - C, C++ compilers and Make tool
-	- Development package for libusb
+  - Development package for libusb
