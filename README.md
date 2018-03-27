@@ -18,15 +18,15 @@ A library which allows applications to interface with Measurement Computing DAQ 
   - Red Hat-based Linux distributions as Fedora, CentOS
   
   ```
-     sudo yum install gcc gcc-c++ make
-     sudo yum install libusbx-devel
+     $ sudo yum install gcc gcc-c++ make
+     $ sudo yum install libusbx-devel
   ```
      
   - OpenSUSE 
   
   ```
-     sudo zypper install gcc gcc-c++ make
-     sudo zypper install libusb-devel
+     $ sudo zypper install gcc gcc-c++ make
+     $ sudo zypper install libusb-devel
   ```
 
 ### Build Instructions
@@ -35,19 +35,19 @@ A library which allows applications to interface with Measurement Computing DAQ 
 - Download and extract the latest version of the UL for Linux package
 
 ```
-  wget https://github.com/sbazaz/uldaq/releases/download/vx.x.x/libuldaq-x.x.x.tar.bz2  
+  $ wget https://github.com/sbazaz/uldaq/releases/download/vx.x.x/libuldaq-x.x.x.tar.bz2  
   
-  tar -xvjf libuldaq-x.x.x.tar.bz2
+  $ tar -xvjf libuldaq-x.x.x.tar.bz2
   
-  cd libuldaq-x.x.x
+  $ cd libuldaq-x.x.x
 ```
   
 - Run the following commands to build and install the library
 
 ```
- ./configure & make
+ $ ./configure & make
   
- sudo make install
+ $ sudo make install
 ```
   
 - The C examples are located in the examples folder and ready to run.
