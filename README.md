@@ -1,7 +1,6 @@
 # Universal Library for Linux
-Software API used to communicate with supported Measurement Computing DAQ devices over the Linux platform 
-
-
+A library which allows applications to interface with Masurement Computing DAQ devices on Linux and Mac OS X
+ 
 Prerequisites:
 ---------------
 
@@ -40,9 +39,9 @@ Build Instructions
   
   cd libuldaq-x.x.x
   
-- Run the following commands to build and the package
-  
-  ./configure & make
+- Run the following commands to build and install the library
+   
+   ./configure & make
   
    sudo make install
   
