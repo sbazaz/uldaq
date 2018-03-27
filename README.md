@@ -18,6 +18,7 @@ Prerequisites:
   
      - sudo yum install gcc gcc-c++ make
      - sudo yum install libusbx-devel
+     
     
   - OpenSUSE 
   
