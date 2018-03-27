@@ -30,7 +30,7 @@ A library which allows applications to interface with Measurement Computing DAQ 
   ```
 
 ### Build Instructions
-===================
+---------------------
 
 - Download the latest version of the package
 
