@@ -1,5 +1,5 @@
 ## Universal Library for Linux
-A library which allows applications to interface with Measurement Computing DAQ devices on Linux and Mac OS X
+UL for Linux is a library used to access and control supported Measurement Computing DAQ devices over the Linux platform. The UL for Linux binary name is libuldaq.
  
 ### Prerequisites:
 ---------------
