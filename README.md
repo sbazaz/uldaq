@@ -7,7 +7,7 @@ A library which allows applications to interface with Measurement Computing DAQ 
   - C, C++ compilers and Make tool
   - Development package for libusb
   
-  The following describes how prerequisites above can be installed on diffrent Linux distributions
+  The following describes how the prerequisites above can be installed on diffrent Linux distributions
   
   - Debian-based Linux distributions such as Ubuntu, Raspbian
   
