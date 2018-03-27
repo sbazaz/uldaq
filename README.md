@@ -17,12 +17,12 @@ Prerequisites:
   - Red Hat-based Linux distributions as Fedora, CentOS
   
     - sudo yum install gcc gcc-c++ make
-    - $sudo yum install libusbx-devel
+    - sudo yum install libusbx-devel
     
   - OpenSUSE 
   
-  - sudo zypper install gcc gcc-c++ make
-  - sudo zypper install libusb-devel
+    - sudo zypper install gcc gcc-c++ make
+    - sudo zypper install libusb-devel
 
 Build Instructions
 ===================
