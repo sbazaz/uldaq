@@ -15,7 +15,7 @@ A library which allows applications to interface with Measurement Computing DAQ 
      $ sudo apt-get install gcc g++ make
      $ sudo apt-get install libusb-1.0-0-dev
   ```
-  - Red Hat-based Linux distributions as Fedora, CentOS
+  - Red Hat-based Linux distributions such as Fedora, CentOS
   
   ```
      $ sudo yum install gcc gcc-c++ make
