@@ -1,7 +1,7 @@
-# Universal Library for Linux
+## Universal Library for Linux
 A library which allows applications to interface with Measurement Computing DAQ devices on Linux and Mac OS X
  
-Prerequisites:
+### Prerequisites:
 ---------------
 
   - C, C++ compilers and Make tool
@@ -29,7 +29,7 @@ Prerequisites:
      sudo zypper install libusb-devel
   ```
 
-Build Instructions
+### Build Instructions
 ===================
 
 - Download the latest version of the package
