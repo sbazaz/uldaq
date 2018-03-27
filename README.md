@@ -55,9 +55,9 @@ Build Instructions
 - Run the following commands to build and install the library
 
 ```
-   ./configure & make
+ ./configure & make
   
-   sudo make install
+ sudo make install
 ```
   
 - The examples are located in the examples folder and ready to run.
