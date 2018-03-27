@@ -22,13 +22,12 @@ Prerequisites:
      sudo yum install libusbx-devel
   ```
      
-    
   - OpenSUSE 
   
-```
+  ```
      sudo zypper install gcc gcc-c++ make
      sudo zypper install libusb-devel
-```
+  ```
 
 Build Instructions
 ===================
