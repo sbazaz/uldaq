@@ -52,6 +52,7 @@ CtrUsbCtrx::CtrUsbCtrx(const UsbDaqDevice& daqDevice, int numCtrs) : CtrUsbBase(
 	mCtrInfo.setRegisterTypes(CRT_COUNT | CRT_LOAD | CRT_MIN_LIMIT | CRT_MAX_LIMIT | CRT_OUTPUT_VAL0 | CRT_OUTPUT_VAL1);
 
 	addSupportedTickSizes();
+	addSupportedDebounceTimes();
 }
 
 CtrUsbCtrx::~CtrUsbCtrx()
@@ -394,6 +395,26 @@ void CtrUsbCtrx::addSupportedTickSizes()
 	mCtrInfo.addTickSize(CTS_TICK_208PT3ns);
 	mCtrInfo.addTickSize(CTS_TICK_2083PT3ns);
 	mCtrInfo.addTickSize(CTS_TICK_20833PT3ns);
+}
+
+void CtrUsbCtrx::addSupportedDebounceTimes()
+{
+	mCtrInfo.addDebounceTime(CDT_DEBOUNCE_500ns);
+	mCtrInfo.addDebounceTime(CDT_DEBOUNCE_1500ns);
+	mCtrInfo.addDebounceTime(CDT_DEBOUNCE_3500ns);
+	mCtrInfo.addDebounceTime(CDT_DEBOUNCE_7500ns);
+	mCtrInfo.addDebounceTime(CDT_DEBOUNCE_15500ns);
+	mCtrInfo.addDebounceTime(CDT_DEBOUNCE_31500ns);
+	mCtrInfo.addDebounceTime(CDT_DEBOUNCE_63500ns);
+	mCtrInfo.addDebounceTime(CDT_DEBOUNCE_127500ns);
+	mCtrInfo.addDebounceTime(CDT_DEBOUNCE_100us);
+	mCtrInfo.addDebounceTime(CDT_DEBOUNCE_300us);
+	mCtrInfo.addDebounceTime(CDT_DEBOUNCE_700us);
+	mCtrInfo.addDebounceTime(CDT_DEBOUNCE_1500us);
+	mCtrInfo.addDebounceTime(CDT_DEBOUNCE_3100us);
+	mCtrInfo.addDebounceTime(CDT_DEBOUNCE_6300us);
+	mCtrInfo.addDebounceTime(CDT_DEBOUNCE_12700us);
+	mCtrInfo.addDebounceTime(CDT_DEBOUNCE_25500us);
 }
 
 } /* namespace ul */

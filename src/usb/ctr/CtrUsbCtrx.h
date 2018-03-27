@@ -46,6 +46,7 @@ private:
 	unsigned char getDebounceOptionCode(CounterDebounceMode debounceMode, CounterDebounceTime debounceTime) const;
 
 	void addSupportedTickSizes();
+	void addSupportedDebounceTimes();
 
 private:
 	enum { FIFO_SIZE = 8 * 2 * 1024 }; // samples size is 2

@@ -41,6 +41,7 @@ private:
 	unsigned char getCtrOptionCode(CounterMeasurementType measureType,  CounterMeasurementMode measureMode, CounterEdgeDetection edgeDetection) const;
 
 	void addSupportedTickSizes();
+	void addSupportedDebounceTimes();
 
 private:
 	enum { FIFO_SIZE = 8 * 4 * 1024 }; // samples size is 4
