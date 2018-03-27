@@ -40,7 +40,7 @@ Build Instructions
   cd libuldaq-x.x.x
   
 - Run the following commands to build and install the library
-   
+
    ./configure & make
   
    sudo make install
