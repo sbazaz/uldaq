@@ -50,10 +50,11 @@ UL for Linux is a library used to access and control supported Measurement Compu
  $ sudo make install
 ```
   
-- The C examples are located in the examples folder and ready to run.
-...
+- The C examples are located in the examples folder and ready to run
+
+```
  $ cd examples
  $ ./AIn
-...
+```
   
   
