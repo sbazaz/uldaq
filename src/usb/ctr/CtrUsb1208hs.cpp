@@ -33,7 +33,7 @@ unsigned long long CtrUsb1208hs::cIn(int ctrNum)
 
 	int numCtrs = mCtrInfo.getNumCtrs();
 
-	unsigned int counterVals[2] = {0, 0};
+	unsigned int counterVals[4] = {0, 0, 0, 0};
 
 	daqDev().queryCmd(CMD_CTR, 0, 0, (unsigned char*) &counterVals, numCtrs * sizeof(unsigned int));
 
