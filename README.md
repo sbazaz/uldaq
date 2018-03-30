@@ -53,16 +53,14 @@ UL for Linux is a library used to access and control supported Measurement Compu
  
 ```
   $ tar -xvjf libuldaq-0.0.1-b10.tar.bz2
-  
-  $ cd libuldaq-0.0.1-b10
 ```
   
 - Run the following commands to build and install the library
 
 ```
- $ ./configure & make
-  
- $ sudo make install
+  $ cd libuldaq-0.0.1-b10
+  $ ./configure & make
+  $ sudo make install
 ```
   
 - The C examples are located in the examples folder and ready to run
