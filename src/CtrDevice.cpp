@@ -121,7 +121,7 @@ void CtrDevice::check_CLoad_Args(int ctrNum, CounterRegisterType regType, unsign
 
 	unsigned long long maxCtrVal = (1ULL << mCtrInfo.getResolution()) - 1;
 
-	if(loadValue < 0 || loadValue > maxCtrVal)
+	if(loadValue > maxCtrVal)
 		throw UlException(ERR_BAD_CTR_VAL);
 
 	std::bitset<32> typeBitSet(regType);
