@@ -28,6 +28,14 @@ UL for Linux is a library used to access and control supported Measurement Compu
      $ sudo zypper install gcc gcc-c++ make
      $ sudo zypper install libusb-devel
   ```
+  
+  - MacOS (10.11 or later recommended)
+  
+  ```
+    $ xcode-select --install
+    $ ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+    $ brew install libusb
+  ```
 
 ### Build Instructions
 ---------------------
@@ -35,7 +43,11 @@ UL for Linux is a library used to access and control supported Measurement Compu
 - Download and extract the latest version of the UL for Linux package
 
 ```
-  $ wget https://github.com/sbazaz/uldaq/releases/download/v0.0.1-beta.10/libuldaq-0.0.1-b10.tar.bz2  
+  Linux
+     $ wget https://github.com/sbazaz/uldaq/releases/download/v0.0.1-beta.10/libuldaq-0.0.1-b10.tar.bz2
+  
+  MacOS
+     $ curl -L -O https://github.com/sbazaz/uldaq/releases/download/v0.0.1-beta.10/libuldaq-0.0.1-b10.tar.bz2
   
   $ tar -xvjf libuldaq-0.0.1-b10.tar.bz2
   
