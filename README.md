@@ -59,7 +59,7 @@ UL for Linux is a library used to access and control supported Measurement Compu
 
 ```
   $ cd libuldaq-0.0.1-b10
-  $ ./configure & make
+  $ ./configure && make
   $ sudo make install
 ```
   
