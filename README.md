@@ -29,7 +29,7 @@ UL for Linux is a library used to access and control supported Measurement Compu
      $ sudo zypper install libusb-devel
   ```
   
-  - MacOS (10.11 or later recommended)
+  - MacOS (Version 10.11 or later recommended)
   
   ```
     $ xcode-select --install
