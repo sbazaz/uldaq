@@ -14,7 +14,7 @@
 namespace ul
 {
 
-class SuspendMonitor
+class UL_LOCAL SuspendMonitor
 {
 public:
 
@@ -24,14 +24,17 @@ public:
 		return mInstance;
 	}
 
-	void start();
-	void terminate();
+	~SuspendMonitor();
+
+	static void init() { instance().start(); }
 	inline unsigned long long getCurrentSystemSuspendCount() { return mSystemSuspendCount;}
 
 protected:
 	SuspendMonitor();
 
 private:
+	void start();
+	void terminate();
 	static void* suspendDetectionThread(void *arg);
 
 private:

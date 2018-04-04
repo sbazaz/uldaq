@@ -23,6 +23,13 @@ SuspendMonitor::SuspendMonitor()
 	mSystemSuspendCount = 0;
 }
 
+SuspendMonitor::~SuspendMonitor()
+{
+	FnLog log("SuspendMonitor::~SuspendMonitor()");
+
+	terminate();
+}
+
 void SuspendMonitor::start()
 {
 	FnLog log("SuspendMonitor::startSuspendDetectionThread");
@@ -62,15 +69,13 @@ void* SuspendMonitor::suspendDetectionThread(void *arg)
 	unsigned long long currentTime;
 	const unsigned int MAX_TIME = 1000; //ms
 
-	ThreadEvent event;
-
 	struct timespec now;
 
 	ul_clock_realtime(&now);
 
 	This->mSystemTimeRecorded = ((uint64_t) now.tv_sec) * 1000 + ((uint64_t) now.tv_nsec / 1000000);
 
-	while (!This->mTerminateSuspendDetectionThread && event.wait_for_signal(100000) == ETIMEDOUT)
+	while (!This->mTerminateSuspendDetectionThread && This->mEvent.wait_for_signal(100000) == ETIMEDOUT)
 	{
 		ul_clock_realtime(&now);
 
