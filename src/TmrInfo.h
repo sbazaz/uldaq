@@ -35,12 +35,6 @@ public:
 	void setTriggerTypes(long long triggerTypes);
 	TriggerType getTriggerTypes() const;
 
-	/*void addTriggerType(TriggerType triggerType);
-	std::vector<TriggerType> getTriggerTypes() const;
-	void getTriggerTypes(TriggerType types[], int* count) const;
-	int getTriggerTypeCount() const;
-	TriggerType getTriggerType(unsigned int index) const;*/
-
 private:
 	int mNumTimers;
 	double mMinFreq;

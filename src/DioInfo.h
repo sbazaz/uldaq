@@ -47,22 +47,12 @@ public:
 	void setScanFlags(DigitalDirection direction, long long flags);
 	long long getScanFlags(DigitalDirection direction) const;
 
-	//void addTriggerType(DigitalDirection direction, TriggerType triggerType);
-	//std::vector<TriggerType> getTriggerTypes(DigitalDirection direction) const;
-
 	bool hasPacer(DigitalDirection direction) const;
 	void hasPacer(DigitalDirection direction, bool hasPacer);
 
-
-	//void setSampleSize(int size);
-	//int getSampleSize() const;
 	void setTriggerTypes(DigitalDirection direction, long long triggerTypes);
 	TriggerType getTriggerTypes(DigitalDirection direction) const;
 	bool supportsTrigger(DigitalDirection direction) const;
-
-	/*void getTriggerTypes(DigitalDirection direction, TriggerType types[], int* count) const;
-	int getTriggerTypeCount(DigitalDirection direction) const;
-	TriggerType getTriggerType(DigitalDirection direction, unsigned int index) const;*/
 
 	bool isPortSupported(DigitalPortType portType) const;
 	int getPortNum(DigitalPortType portType) const;

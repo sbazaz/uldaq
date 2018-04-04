@@ -78,40 +78,6 @@ ScanOption TmrInfo::getScanOptions() const
 {
 	return mScanOptions;
 }
-/*
-void TmrInfo::addTriggerType(TriggerType triggerType)
-{
-	mTriggerTypes.push_back(triggerType);
-}
-
-
-std::vector<TriggerType> TmrInfo::getTriggerTypes() const
-{
-	return mTriggerTypes;
-}
-
-void TmrInfo::getTriggerTypes(TriggerType types[], int* count) const
-{
-	if(mTriggerTypes.size() <= (unsigned int)*count )
-		std::copy(mTriggerTypes.begin(), mTriggerTypes.end(), types);
-
-	*count = mTriggerTypes.size();
-}
-
-int TmrInfo::getTriggerTypeCount() const
-{
-	return mTriggerTypes.size();
-}
-
-TriggerType TmrInfo::getTriggerType(unsigned int index) const
-{
-	TriggerType type = (TriggerType) 0;
-
-	if(index < mTriggerTypes.size())
-		type = mTriggerTypes[index];
-
-	return type;
-}*/
 
 void TmrInfo::setTriggerTypes(long long triggerTypes)
 {

@@ -33,20 +33,17 @@ void lib_load(void)
 	UsbDaqDevice::usb_init();
 	//HidDaqDevice::hidapi_init();
 
-	SuspendMonitor::instance().start();
+	SuspendMonitor::init();
 }
 
 
 void lib_unload(void)
 {
-	SuspendMonitor::instance().terminate();
-
 	DaqDeviceManager::releaseDevices();
 
 	//HidDaqDevice::hidapi_exit();
 
 	UsbDaqDevice::usb_exit();
-
 
 	UL_LOG("UL unloaded");
 	UL_LOG("<<<<<<<<<<<<<<<<<<<<<<<<<<<");
