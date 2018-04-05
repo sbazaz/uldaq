@@ -47,7 +47,7 @@ UL for Linux is a library used to access and control supported Measurement Compu
      $ wget https://github.com/sbazaz/uldaq/releases/download/v0.0.1-beta.11/libuldaq-0.0.1-b11.tar.bz2
   
   MacOS
-     $ curl -L -O https://github.com/sbazaz/uldaq/releases/download/v0.0.1-beta.10/libuldaq-0.0.1-b11.tar.bz2
+     $ curl -L -O https://github.com/sbazaz/uldaq/releases/download/v0.0.1-beta.11/libuldaq-0.0.1-b11.tar.bz2
  ``` 
  - Extract the tar file
  
