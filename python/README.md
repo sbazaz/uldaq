@@ -4,8 +4,7 @@
 ---------
 The **uldaq** Python package contains an API (Application Programming Interface)
 for interacting with Measurement Computing DAQ devices. The package is implemented
-as an object-oriented wrapper around the UL for Linux C API using the
-`ctypes <https://docs.python.org/2/library/ctypes.html>`_ Python library.
+as an object-oriented wrapper around the UL for Linux C API using the [ctypes](https://docs.python.org/2/library/ctypes.html) Python library.
 
 **uldaq** supports CPython 2.7, 3.4+
 
@@ -13,8 +12,7 @@ as an object-oriented wrapper around the UL for Linux C API using the
 ----------------
 The **uldaq** Python package is installed automatically for the default python and python3
 interpreters as part of the UL for Linux C API installation.  To update or install the
-**uldaq** Python package for other Python interpreter versions, get the latest source from
-https://github.com/sbazaz/uldaq/tree/master/python and run:
+**uldaq** Python package for other Python interpreter versions, get the latest [source](https://github.com/sbazaz/uldaq/tree/master/python) and run:
 
  ```
     $ python setup.py install
@@ -25,7 +23,7 @@ https://github.com/sbazaz/uldaq/tree/master/python and run:
 The following is a simple example for reading a single voltage value from each channel in
 an analog input subsystem of a Measurement Computing DAQ device.
 
- ```
+ ```python
  >>> from uldaq import get_daq_device_inventory, DaqDevice, InterfaceType, AiInputMode, Range, AInFlag
  >>> devices = get_daq_device_inventory(InterfaceType.USB)
  >>> daq_device = DaqDevice(devices[0])
@@ -40,9 +38,9 @@ an analog input subsystem of a Measurement Computing DAQ device.
  >>> daq_device.release()
  ```
 
-Using a with block:
+The same example using a with block:
 
- ```
+ ```python
  >>> from uldaq import get_daq_device_inventory, DaqDevice, InterfaceType, AiInputMode, Range, AInFlag
  >>> devices = get_daq_device_inventory(InterfaceType.USB)
  >>> with DaqDevice(devices[0]) as daq_device:
@@ -56,11 +54,10 @@ Using a with block:
 
 ### Additional Documentation
 ----------------------------
-The complete **uldaq** Python documentation can be found `here <http://www.mccdaq.com>`_.
+The complete **uldaq** Python documentation can be found [here](http://www.mccdaq.com).
 
 ### License
 -----------
-**uldaq** is licensed under an MIT-style license (see
-`LICENSE <https://github.com/sbazaz/uldaq/blob/master/LICENSE>`_).
+The **uldaq** library is licensed under an MIT-style license (see [LICENSE](https://github.com/sbazaz/uldaq/blob/master/LICENSE)).
 Other incorporated projects may be licensed under different licenses. All
 licenses allow for non-commercial and commercial use.
