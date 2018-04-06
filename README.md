@@ -1,63 +1,75 @@
-## Universal Library for Linux - Python API
+## Universal Library for Linux
+UL for Linux is a library used to access and control supported Measurement Computing DAQ devices over the Linux platform. The UL for Linux binary name is libuldaq.
+ 
+### Prerequisites:
+---------------
 
-### About
----------
-The **uldaq** Python package contains an API (Application Programming Interface)
-for interacting with Measurement Computing DAQ devices. The package is implemented
-as an object-oriented wrapper around the UL for Linux C API using the [ctypes](https://docs.python.org/2/library/ctypes.html) Python library.
+  1. C, C++ compilers and Make tool
+  2. Development package for libusb
+  
+  The following describes how the prerequisites above can be installed on diffrent Linux distributions
+  
+  - Debian-based Linux distributions such as Ubuntu, Raspbian
+  
+  ```
+     $ sudo apt-get install gcc g++ make
+     $ sudo apt-get install libusb-1.0-0-dev
+  ```
+  - Red Hat-based Linux distributions such as Fedora, CentOS
+  
+  ```
+     $ sudo yum install gcc gcc-c++ make
+     $ sudo yum install libusbx-devel
+  ```
+     
+  - OpenSUSE 
+  
+  ```
+     $ sudo zypper install gcc gcc-c++ make
+     $ sudo zypper install libusb-devel
+  ```
+  
+  - MacOS (Version 10.11 or later recommended)
+  
+  ```
+    $ xcode-select --install
+    $ ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+    $ brew install libusb
+  ```
 
-**uldaq** supports CPython 2.7, 3.4+
+### Build Instructions
+---------------------
 
-### Installation
-----------------
-The **uldaq** Python package is installed automatically for the default python and python3
-interpreters as part of the UL for Linux C API installation.  To update or install the
-**uldaq** Python package for other Python interpreter versions, get the latest [source](https://github.com/sbazaz/uldaq/tree/master/python) and run:
+- Download the latest version of the UL for Linux package
 
- ```
-    $ python setup.py install
- ```
+```
+  Linux
+     $ wget https://github.com/sbazaz/uldaq/releases/download/v0.0.1-beta.11/libuldaq-0.0.1-b11.tar.bz2
+  
+  MacOS
+     $ curl -L -O https://github.com/sbazaz/uldaq/releases/download/v0.0.1-beta.11/libuldaq-0.0.1-b11.tar.bz2
+ ``` 
+ - Extract the tar file
+ 
+```
+  $ tar -xvjf libuldaq-0.0.1-b11.tar.bz2
+```
+  
+- Run the following commands to build and install the library
 
-### Usage
----------
-The following is a simple example for reading a single voltage value from each channel in
-an analog input subsystem of a Measurement Computing DAQ device.
+```
+  $ cd libuldaq-0.0.1-b11
+  $ ./configure && make
+  $ sudo make install
+```
+  
+- The C examples are located in the examples folder and ready to run
 
- ```python
- >>> from uldaq import get_daq_device_inventory, DaqDevice, InterfaceType, AiInputMode, Range, AInFlag
- >>> devices = get_daq_device_inventory(InterfaceType.USB)
- >>> daq_device = DaqDevice(devices[0])
- >>> daq_device.connect()
- >>> ai_device = daq_device.get_ai_device()
- >>> ai_info = ai_device.get_info()
- >>> for channel in range(ai_info.get_num_chans()):
- ...     data = ai_device.a_in(channel, AiInputMode.SINGLE_ENDED, Range.BIP10VOLTS, AInFlag.DEFAULT)
- ...     print('Channel', channel, 'Data:', data)
- ...
- >>> daq_device.disconnect()
- >>> daq_device.release()
- ```
+```
+ $ cd examples
+ $ ./AIn
+```
 
-The same example using a with block:
-
- ```python
- >>> from uldaq import get_daq_device_inventory, DaqDevice, InterfaceType, AiInputMode, Range, AInFlag
- >>> devices = get_daq_device_inventory(InterfaceType.USB)
- >>> with DaqDevice(devices[0]) as daq_device:
- ...     ai_device = daq_device.get_ai_device()
- ...     ai_info = ai_device.get_info()
- ...     for channel in range(ai_info.get_num_chans()):
- ...         data = ai_device.a_in(channel, AiInputMode.SINGLE_ENDED, Range.BIP10VOLTS, AInFlag.DEFAULT)
- ...         print('Channel', channel, 'Data:', data)
- ...
- ```
-
-### Additional Documentation
-----------------------------
-The complete **uldaq** Python documentation can be found [here](http://www.mccdaq.com).
-
-### License
------------
-The **uldaq** library is licensed under an MIT-style license (see [LICENSE](https://github.com/sbazaz/uldaq/blob/master/LICENSE)).
-Other incorporated projects may be licensed under different licenses. All
-licenses allow for non-commercial and commercial use.
+- The Python examples are located in the python/examples folder
+  
+  
