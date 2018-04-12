@@ -7,7 +7,7 @@ UL for Linux is a library used to access and control supported Measurement Compu
   - C, C++ compilers and Make tool
   - Development package for libusb
   
-  The following describes how the prerequisites above can be installed on diffrent Linux distributions
+  The following describes how the prerequisites above can be installed on different Linux distributions
   
   - Debian-based Linux distributions such as Ubuntu, Raspbian
   
