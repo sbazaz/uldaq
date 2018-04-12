@@ -72,5 +72,5 @@ UL for Linux is a library used to access and control supported Measurement Compu
 
 ### Python interface
 ---------------------
-- To install the Python interface go to https://pypi.org/project/uldaq/ 
+- To install the Python interface, follow the build instructions above, then go to https://pypi.org/project/uldaq/ 
  
