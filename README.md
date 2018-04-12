@@ -32,9 +32,9 @@ UL for Linux is a library used to access and control supported Measurement Compu
   - MacOS (Version 10.11 or later recommended)
   
   ```
-    $ xcode-select --install
-    $ ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-    $ brew install libusb
+     $ xcode-select --install
+     $ ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+     $ brew install libusb
   ```
 
 ### Build Instructions
@@ -48,7 +48,7 @@ UL for Linux is a library used to access and control supported Measurement Compu
   
   MacOS
      $ curl -L -O https://github.com/sbazaz/uldaq/releases/download/v0.0.1-beta.13/libuldaq-0.0.1-b13.tar.bz2
- ``` 
+``` 
  - Extract the tar file
  
 ```
@@ -66,8 +66,8 @@ UL for Linux is a library used to access and control supported Measurement Compu
 - The C examples are located in the examples folder and ready to run
 
 ```
- $ cd examples
- $ ./AIn
+  $ cd examples
+  $ ./AIn
 ```
 
 - Run the following command in the python folder to install the Python interface
