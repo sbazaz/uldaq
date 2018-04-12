@@ -70,7 +70,7 @@ UL for Linux is a library used to access and control supported Measurement Compu
  $ ./AIn
 ```
 
-- Run following command in the python folder to install the Python interface
+- Run the following command in the python folder to install the Python interface
  
 ```
   $ sh install.sh
