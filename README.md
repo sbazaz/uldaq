@@ -44,21 +44,21 @@ UL for Linux is a library used to access and control supported Measurement Compu
 
 ```
   Linux
-     $ wget https://github.com/sbazaz/uldaq/releases/download/v0.0.1-beta.12/libuldaq-0.0.1-b12.tar.bz2
+     $ wget https://github.com/sbazaz/uldaq/releases/download/v0.0.1-beta.13/libuldaq-0.0.1-b13.tar.bz2
   
   MacOS
-     $ curl -L -O https://github.com/sbazaz/uldaq/releases/download/v0.0.1-beta.12/libuldaq-0.0.1-b12.tar.bz2
+     $ curl -L -O https://github.com/sbazaz/uldaq/releases/download/v0.0.1-beta.13/libuldaq-0.0.1-b13.tar.bz2
  ``` 
  - Extract the tar file
  
 ```
-  $ tar -xvjf libuldaq-0.0.1-b12.tar.bz2
+  $ tar -xvjf libuldaq-0.0.1-b13.tar.bz2
 ```
   
 - Run the following commands to build and install the library
 
 ```
-  $ cd libuldaq-0.0.1-b12
+  $ cd libuldaq-0.0.1-b13
   $ ./configure && make
   $ sudo make install
 ```
@@ -70,6 +70,8 @@ UL for Linux is a library used to access and control supported Measurement Compu
  $ ./AIn
 ```
 
-- The Python examples are located in the python/examples folder
+- Run following command in the Python folder to install the Python interface
   
-  
+  ```
+  $ sh install.sh
+  ```
