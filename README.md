@@ -40,7 +40,7 @@ UL for Linux is a library used to access and control supported Measurement Compu
 ### Build Instructions
 ---------------------
 
-1. Download the latest version of the UL for Linux package
+1. Download the latest version of the UL for Linux package:
 
 ```
   Linux
@@ -49,13 +49,13 @@ UL for Linux is a library used to access and control supported Measurement Compu
   MacOS
      $ curl -L -O https://github.com/sbazaz/uldaq/releases/download/v0.0.1-beta.13/libuldaq-0.0.1-b13.tar.bz2
 ``` 
-2. Extract the tar file
+2. Extract the tar file:
  
 ```
   $ tar -xvjf libuldaq-0.0.1-b13.tar.bz2
 ```
   
-3. Run the following commands to build and install the library
+3. Run the following commands to build and install the library:
 
 ```
   $ cd libuldaq-0.0.1-b13
@@ -63,7 +63,7 @@ UL for Linux is a library used to access and control supported Measurement Compu
   $ sudo make install
 ```
   
-4. Run the C examples, which are located in the examples folder
+4. Run the C examples, which are located in the examples folder:
 
 ```
   $ cd examples
