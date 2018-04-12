@@ -70,8 +70,7 @@ UL for Linux is a library used to access and control supported Measurement Compu
   $ ./AIn
 ```
 
-- Run the following command in the python folder to install the Python interface
+### Python interface
+---------------------
+- To install the Python interface go to https://pypi.org/project/uldaq/ 
  
-```
-  $ sudo sh install.sh
-```
