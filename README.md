@@ -117,7 +117,6 @@ int main(void)
 			}
 
 			ulDisconnectDaqDevice(handle);
-
 			ulReleaseDaqDevice(handle);
 		}
 	}
