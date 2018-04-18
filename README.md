@@ -117,12 +117,11 @@ int main(void)
 			}
 
 			ulDisconnectDaqDevice(daqDeviceHandle);
-
 			ulReleaseDaqDevice(daqDeviceHandle);
 		}
 	}
 
 	return 0;
-}`
+}
 
 ```
