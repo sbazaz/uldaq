@@ -4,7 +4,7 @@
 **Author:** Measurement Computing
 
 ## About
-The uldaq package contains programming libraries and components for developing 32-bit and 64-bit applications using C/C++ on Linux Operating Systems. An API (Application Programming Interface) for interacting with the library in Python is available as an additional installation. This package was created and is supported by MCC. 
+The uldaq package contains programming libraries and components for developing applications using C/C++ on Linux Operating Systems. An API (Application Programming Interface) for interacting with the library in Python is available as an additional installation. This package was created and is supported by MCC. 
 
 ### Prerequisites:
 ---------------
