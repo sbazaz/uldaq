@@ -124,5 +124,5 @@ int main(void)
 	return 0;
 }
 ```
-###Support/Feedback
+### Support/Feedback
 The uldaq package is supported by MCC. For support for uldaq, contact technical support through mccdaq.com/Support. Please include detailed steps on how to reproduce the problem in your request.
