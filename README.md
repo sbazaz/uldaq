@@ -87,7 +87,7 @@ int main(void)
 {
 	unsigned int numDevs = MAX_DEV_COUNT;
 	DaqDeviceDescriptor devDescriptors[MAX_DEV_COUNT];
-	DaqDeviceHandle daqDeviceHandle = 0;
+	DaqDeviceHandle devHandle = 0;
 
 	int chan = 0;
 	double data = 0;
@@ -100,28 +100,28 @@ int main(void)
 	if (numDevs)
 	{
 		// get a handle to the DAQ device associated with the first descriptor
-		daqDeviceHandle = ulCreateDaqDevice(devDescriptors[0]);
+		devHandle = ulCreateDaqDevice(devDescriptors[0]);
 
 		// check if the DAQ device handle is valid
-		if (daqDeviceHandle)
+		if (devHandle)
 		{
 			// establish a connection to the DAQ device
-			err = ulConnectDaqDevice(daqDeviceHandle);
+			err = ulConnectDaqDevice(devHandle);
 
 			// read data for the first 4 analog input channels
 			for (chan = 0; chan <= 3; chan++)
 			{
-				err = ulAIn(daqDeviceHandle, chan, AI_SINGLE_ENDED, BIP5VOLTS, AIN_FF_DEFAULT, &data);
+				err = ulAIn(devHandle, chan, AI_SINGLE_ENDED, BIP5VOLTS, AIN_FF_DEFAULT, &data);
 
 				printf("Channel(%d) Data: %10.6f\n", chan, data);
 			}
 
-			ulDisconnectDaqDevice(daqDeviceHandle);
-			ulReleaseDaqDevice(daqDeviceHandle);
+			ulDisconnectDaqDevice(devHandle);
+
+			ulReleaseDaqDevice(devHandle);
 		}
 	}
 
 	return 0;
 }
-
 ```
