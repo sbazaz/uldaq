@@ -9,11 +9,6 @@ The uldaq package contains programming libraries and components for developing 3
 ### Prerequisites:
 ---------------
 Building the uldaq package requires C/C++ compilers, make tool, and the development package for libusb. The following describes how these prerequisites can be installed on different Linux distributions.
-
-  - C, C++ compilers and Make tool
-  - Development package for libusb
-  
-  The following describes how the prerequisites above can be installed on different Linux distributions
   
   - Debian-based Linux distributions such as Ubuntu, Raspbian
   
