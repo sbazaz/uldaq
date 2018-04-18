@@ -1,8 +1,14 @@
-## Universal Library for Linux
-UL for Linux is a library used to access and control supported Measurement Computing DAQ devices over the Linux platform. The UL for Linux binary name is libuldaq.
- 
+## MCC Universal Library for Linux
+Info: Contains a library to access and control supported Measurement Computing DAQ devices over the Linux platform. The UL for Linux binary name is libuldaq.
+
+Author: Measurement Computing
+
+## About
+The uldaq package contains programming libraries and components for developing 32-bit and 64-bit applications using C/C++ on Linux Operating Systems. An API (Application Programming Interface) for interacting with the library in Python is available as an additional installation. This package was created and is supported by MCC. 
+
 ### Prerequisites:
 ---------------
+Building the uldaq package requires C/C++ compilers, make tool, and the development package for libusb. The following describes how these prerequisites can be installed on different Linux distributions.
 
   - C, C++ compilers and Make tool
   - Development package for libusb
@@ -66,7 +72,7 @@ UL for Linux is a library used to access and control supported Measurement Compu
 Note: To install the Python interface, follow the above build [instructions](#build-instructions) then go to https://pypi.org/project/uldaq/ for further installation.
   
 ### Examples
-Run the C examples, located in the examples folder, by entering the following commands 
+The C examples are located in the examples folder, Run the following commands to execute the Analog input examples 
 
 ```
   $ cd examples
