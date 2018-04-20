@@ -45,21 +45,21 @@ Building the **uldaq** package requires C/C++ compilers, make tool, and the deve
 
 ```
   Linux
-     $ wget https://github.com/sbazaz/uldaq/releases/download/v0.0.1-beta.17/libuldaq-0.0.1-b17.tar.bz2
+     $ wget https://github.com/sbazaz/uldaq/releases/download/v0.0.1-beta.18/libuldaq-0.0.1-b18.tar.bz2
   
   MacOS
-     $ curl -L -O https://github.com/sbazaz/uldaq/releases/download/v0.0.1-beta.17/libuldaq-0.0.1-b17.tar.bz2
+     $ curl -L -O https://github.com/sbazaz/uldaq/releases/download/v0.0.1-beta.18/libuldaq-0.0.1-b18.tar.bz2
 ``` 
 2. Extract the tar file:
  
 ```
-  $ tar -xvjf libuldaq-0.0.1-b17.tar.bz2
+  $ tar -xvjf libuldaq-0.0.1-b18.tar.bz2
 ```
   
 3. Run the following commands to build and install the library:
 
 ```
-  $ cd libuldaq-0.0.1-b17
+  $ cd libuldaq-0.0.1-b18
   $ ./configure && make
   $ sudo make install
 ```
@@ -77,7 +77,7 @@ Refer to the **uldaq** [PyPI](https://pypi.org/project/uldaq/) page for instruct
 
 ### Usage
 The following is a basic example of using the Universal Library for Linux to perform analog input. Further examples are available in the Examples folder.
-```
+``` C
 #include <stdio.h>
 #include "uldaq.h"
 
