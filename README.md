@@ -131,7 +131,7 @@ Bugs/Feature Request
 To report a bug or submit a feature request, please use the **uldaq** GitHub [issues page](https://github.com/sbazaz/uldaq/issues).
 
 ### Documentation
-Online help for the Universal Library for Linux is available [C/C++](https://www.mccdaq.com/PDFs/Manuals/UL-Linux/c/index.html) and [Python](https://www.mccdaq.com/PDFs/Manuals/UL-Linux/python/index.html).
+Online help for the Universal Library for Linux is available for [C/C++](https://www.mccdaq.com/PDFs/Manuals/UL-Linux/c/index.html) and [Python](https://www.mccdaq.com/PDFs/Manuals/UL-Linux/python/index.html).
 
 If Doxygen is installed and you wish to build the API documentation on your system, run the following commands:
 
