@@ -12,7 +12,7 @@ Building the **uldaq** package requires C/C++ compilers, make tool, and the deve
   
   - Debian-based Linux distributions such as Ubuntu, Raspbian
   
-  ```
+  ``` sh
      $ sudo apt-get install gcc g++ make
      $ sudo apt-get install libusb-1.0-0-dev
   ```
