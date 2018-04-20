@@ -1,14 +1,14 @@
-## MCC Universal Library for Linux
+## MCC Universal Library for Linux (uldaq)
 **Info:** Contains a library to access and control supported Measurement Computing DAQ devices over the Linux platform. The UL for Linux binary name is libuldaq.
 
 **Author:** Measurement Computing
 
 ## About
-The uldaq package contains programming libraries and components for developing applications using C/C++ on Linux Operating Systems. An API (Application Programming Interface) for interacting with the library in Python is available as an additional installation. This package was created and is supported by MCC. 
+The **uldaq** package contains programming libraries and components for developing applications using C/C++ on Linux Operating Systems. An API (Application Programming Interface) for interacting with the library in Python is available as an additional installation. This package was created and is supported by MCC. 
 
 ### Prerequisites:
 ---------------
-Building the uldaq package requires C/C++ compilers, make tool, and the development package for libusb. The following describes how these prerequisites can be installed on different Linux distributions.
+Building the **uldaq** package requires C/C++ compilers, make tool, and the development package for libusb. The following describes how these prerequisites can be installed on different Linux distributions.
   
   - Debian-based Linux distributions such as Ubuntu, Raspbian
   
@@ -41,7 +41,7 @@ Building the uldaq package requires C/C++ compilers, make tool, and the developm
 ### Build Instructions
 ---------------------
 
-1. Download the latest version of the UL for Linux package:
+1. Download the latest version of **uldaq**:
 
 ```
   Linux
@@ -73,7 +73,7 @@ The C examples are located in the examples folder, Run the following commands to
   $ cd examples
   $ ./AIn
 ```
-Refer to the uldaq [PyPI](https://pypi.org/project/uldaq/) page for instructions on installing Python examples.
+Refer to the **uldaq** [PyPI](https://pypi.org/project/uldaq/) page for instructions on installing Python examples.
 
 ### Usage
 The following is a basic example of using the Universal Library for Linux to perform analog input. Further examples are available in the Examples folder.
@@ -126,7 +126,7 @@ int main(void)
 }
 ```
 ### Support/Feedback
-The uldaq package is supported by MCC. For support for uldaq, contact technical through [support page](https://www.mccdaq.com/support/support_form.aspx). Please include detailed steps on how to reproduce the problem in your request.
+The **uldaq** package is supported by MCC. For support for uldaq, contact technical through [support page](https://www.mccdaq.com/support/support_form.aspx). Please include detailed steps on how to reproduce the problem in your request.
 Bugs/Feature Request
 To report a bug or submit a feature request, please use the uldaq GitHub [issues page](https://github.com/sbazaz/uldaq/issues).
 
