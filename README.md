@@ -76,7 +76,7 @@ The C examples are located in the examples folder, Run the following commands to
 Refer to the **uldaq** [PyPI](https://pypi.org/project/uldaq/) page for instructions on installing Python examples.
 
 ### Usage
-The following is a basic example of using the Universal Library for Linux to perform analog input. Further examples are available in the Examples folder.
+The following is a basic C example of using the Universal Library for Linux to perform analog input. Further examples are available in the Examples folder.
 ``` C
 #include <stdio.h>
 #include "uldaq.h"
