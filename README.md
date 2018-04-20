@@ -67,7 +67,7 @@ Building the uldaq package requires C/C++ compilers, make tool, and the developm
 **Note:** To install the Python interface, follow the above [build instructions](#build-instructions) then go to https://pypi.org/project/uldaq/ for further installation.
   
 ### Examples
-The C examples are located in the examples folder, Run the following commands to execute the Analog input example 
+The C examples are located in the examples folder, Run the following commands to execute the analog input example 
 
 ```
   $ cd examples
