@@ -76,7 +76,7 @@ Building the **uldaq** package requires C/C++ compilers, make tool, and the deve
 ### Examples
 The C examples are located in the examples folder, Run the following commands to execute the analog input example 
 
-```
+``` sh
   $ cd examples
   $ ./AIn
 ```
