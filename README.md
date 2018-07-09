@@ -20,26 +20,26 @@ Building the **uldaq** package requires C/C++ compilers, make tool, and the deve
   ```
   - Arch-based Linux distributions such as Manjaro, Antergos
   
-  ```
+  ``` sh
      $ sudo pacman -S gcc make
      $ sudo pacman -S libusb
   ```
   - Red Hat-based Linux distributions such as Fedora, CentOS
   
-  ```
+  ``` sh
      $ sudo yum install gcc gcc-c++ make
      $ sudo yum install libusbx-devel
   ``` 
   - OpenSUSE 
   
-  ```
+  ``` sh
      $ sudo zypper install gcc gcc-c++ make
      $ sudo zypper install libusb-devel
   ```
   
   - MacOS (Version 10.11 or later recommended)
   
-  ```
+  ``` sh
      $ xcode-select --install
      $ ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
      $ brew install libusb
@@ -50,7 +50,7 @@ Building the **uldaq** package requires C/C++ compilers, make tool, and the deve
 
 1. Download the latest version of **uldaq**:
 
-```
+``` sh
   Linux
      $ wget https://github.com/sbazaz/uldaq/releases/download/v1.0.0/libuldaq-1.0.0.tar.bz2
   
@@ -59,13 +59,13 @@ Building the **uldaq** package requires C/C++ compilers, make tool, and the deve
 ``` 
 2. Extract the tar file:
  
-```
+``` sh
   $ tar -xvjf libuldaq-1.0.0.tar.bz2
 ```
   
 3. Run the following commands to build and install the library:
 
-```
+``` sh
   $ cd libuldaq-1.0.0
   $ ./configure && make
   $ sudo make install
@@ -140,7 +140,7 @@ Online help for the Universal Library for Linux is available for [C/C++](https:/
 
 If Doxygen is installed and you wish to build the API documentation on your system, run the following commands:
 
-```
+``` sh
   $ cd doc
   $ doxygen Doxyfile
 ```
