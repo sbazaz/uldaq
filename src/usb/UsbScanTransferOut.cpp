@@ -37,6 +37,8 @@ UsbScanTransferOut::UsbScanTransferOut(const UsbDaqDevice& daqDevice) : mUsbDevi
 	UlLock::initMutex(mXferStateThreadHandleMutex, PTHREAD_MUTEX_RECURSIVE);
 	UlLock::initMutex(mStopXferMutex, PTHREAD_MUTEX_RECURSIVE);
 
+	memset(&mXfer, 0, sizeof(mXfer));
+
 	mEnabledDaqEvents = (DaqEventType) 0;
 }
 
@@ -91,7 +93,7 @@ void UsbScanTransferOut::initilizeTransfers(IoDevice* ioDevice, int endpointAddr
 		if(err)
 		{
 			if(mNumXferPending)
-				stopTransfers();
+				stopTransfers(false);
 
 			throw(UlException(err));
 		}
@@ -167,15 +169,16 @@ void LIBUSB_CALL UsbScanTransferOut::tarnsferCallback(libusb_transfer* transfer)
 	This->mXferEvent.signal();
 }
 
-void UsbScanTransferOut::stopTransfers()
+void UsbScanTransferOut::stopTransfers(bool delay)
 {
 	FnLog log("UsbScanTransferOut::stopTransfers");
 
-	UlLock lock(mStopXferMutex);
-
 	mResubmit = false;
 
-	usleep(1000);
+	if(delay)
+		usleep(1000);
+
+	UlLock lock(mStopXferMutex);
 
 	for(int i = 0; i < MAX_XFER_COUNT; i++)
 	{

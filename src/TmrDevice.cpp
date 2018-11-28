@@ -71,7 +71,7 @@ void TmrDevice::check_TmrPulseOutStart_Args(int timerNum, double* frequency, dou
 
 	unsigned long long  delayPulseCount = *initialDelay * clockFreq;
 
-	if(delayPulseCount < 0 || delayPulseCount > UINT_MAX)
+	if(delayPulseCount > UINT_MAX)
 		throw UlException(ERR_BAD_INITIAL_DELAY);
 
 	if(~mTmrInfo.getScanOptions() & options)

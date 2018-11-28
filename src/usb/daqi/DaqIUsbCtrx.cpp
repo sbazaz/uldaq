@@ -87,6 +87,8 @@ double DaqIUsbCtrx::daqInScan(FunctionType functionType, DaqInChanDescriptor cha
 
 	loadScanConfigs(chanDescriptors, numChans);
 
+	daqDev().clearHalt(epAddr);
+
 	daqDev().sendCmd(CMD_SCAN_CLEARFIFO);
 
 	setScanInfo(functionType, chanCount, samplesPerChan, sampleSize, analogResolution, options, flags, calCoefs, customScales, data);
@@ -288,6 +290,7 @@ void DaqIUsbCtrx::loadScanConfigs(DaqInChanDescriptor chanDescriptors[], int num
 		for(int i = 0; i < fillZeroBankCount; i++)
 		{
 			scanQueue[sqIdx].fillZeros = 1;
+			scanQueue[sqIdx].isDigitalPort = 1;
 			sqIdx++;
 		}
 	}

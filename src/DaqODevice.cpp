@@ -20,7 +20,7 @@ namespace ul
 {
 DaqODevice::DaqODevice(const DaqDevice& daqDevice) : IoDevice(daqDevice), UlDaqODevice()
 {
-	for(int i = 0; i < 4; i++)
+	for(int i = 0; i < 3; i++)
 	{
 		mLastStatus[i].error = ERR_NO_ERROR;
 		mLastStatus[i].scanCount = 0;
