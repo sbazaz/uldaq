@@ -85,8 +85,6 @@ void AiUsbTemp::tIn(int channel, TempScale scale, TInFlag flags, double* data)
 	case -9000:            // if the temp Value is -9000.0  device is not ready yet
 		throw UlException(ERR_DEV_NOT_READY);
 		break;
-	case -9999:
-	  break;
 	default:
 		tempValue = convertTempUnit(tempValue, (TempUnit)scale);
 		*data = mCustomScales[channel].slope * tempValue + mCustomScales[channel].offset;

@@ -150,20 +150,6 @@ double AiUsbTempAi::aIn(int channel, AiInputMode inputMode, Range range, AInFlag
 	else
 		throw UlException(ERR_BAD_AI_CHAN);
 
-	// uncomment if we need AIn to read temp channels
-	/*else
-	{
-		TempScale scale;
-
-		if(flags & AIN_FF_NOSCALEDATA)
-			scale = TS_NOSCALE;
-		else
-			scale = getTempScale(mScanChanTempUnit[channel]);
-
-		data = tIn(channel, scale, TIN_FF_DEFAULT);
-		data = mCustomScales[channel].slope * data + mCustomScales[channel].offset;
-	}*/
-
 	return data;
 }
 
@@ -198,8 +184,6 @@ void AiUsbTempAi::tIn(int channel, TempScale scale, TInFlag flags, double* data)
 		  break;
 		case -9000:            // if the temp Value is -9000.0  device is not ready yet
 		throw UlException(ERR_DEV_NOT_READY);
-		  break;
-		case -9999:
 		  break;
 		default:
 			tempValue = convertTempUnit(tempValue, (TempUnit)scale);
