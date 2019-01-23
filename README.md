@@ -1,4 +1,4 @@
-## uldaq Beta
+## uldaq (Beta)
 **Info:** Contains a library to access and control supported Measurement Computing DAQ devices over the Linux platform. The UL for Linux binary name is libuldaq.
 
 ## About
