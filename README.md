@@ -128,8 +128,6 @@ int main(void)
 	return 0;
 }
 ```
-### Support/Feedback
-The **uldaq** package is supported by MCC. For support for uldaq, contact technical through [support page](https://www.mccdaq.com/support/support_form.aspx). Please include detailed steps on how to reproduce the problem in your request.
 
 ### Documentation
 Online help for the Universal Library for Linux is available for [C/C++](https://www.mccdaq.com/PDFs/Manuals/UL-Linux/c/index.html) and [Python](https://www.mccdaq.com/PDFs/Manuals/UL-Linux/python/index.html).
