@@ -146,5 +146,5 @@ If Doxygen is installed and you wish to build the API documentation on your syst
   $ doxygen Doxyfile
 ```
 
-### Change list
-Changes in each release of uldaq can be found [here](https://github.com/sbazaz/uldaq/blob/master/changelist.md)
+### Changelog
+The changelog for this project can be found [here](https://github.com/sbazaz/uldaq/blob/master/CHANGELOG.md)
