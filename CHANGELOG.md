@@ -8,7 +8,19 @@ All notable changes to the UL for Linux project will be documented in this file.
   * DT9837A
   * DT9837B
   * DT9837C
+
+* AInScanIepe.c example
   
+### Changed
+- none
+
+### Removed
+- none
+
+## [1.1.0] - Dec 3, 2018
+### Added
+* support for the HID DAQ devices
+* support for macOS
 
 ### Changed
 - none
@@ -16,4 +28,5 @@ All notable changes to the UL for Linux project will be documented in this file.
 ### Removed
 - none
 
-## [1.1.0] - 2018 Dec 3, 2018
+## [1.0.0] - May 15, 2018
+Initial release
