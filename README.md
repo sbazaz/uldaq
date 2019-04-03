@@ -129,6 +129,15 @@ int main(void)
 }
 ```
 
+### Uninstall Instructions
+---------------------
+
+Run the following command to uninstall the library
+
+``` sh
+  $ sudo make uninstall
+``` 
+
 ### Documentation
 Online help for the Universal Library for Linux is available for [C/C++](https://www.mccdaq.com/PDFs/Manuals/UL-Linux/c/index.html) and [Python](https://www.mccdaq.com/PDFs/Manuals/UL-Linux/python/index.html).
 
