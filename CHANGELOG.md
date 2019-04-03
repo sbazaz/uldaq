@@ -1,4 +1,4 @@
-# Changelog
+## Changelog
 All notable changes to the UL for Linux project will be documented in this file.
 
 ## [1.1.1] - April 3, 2019
