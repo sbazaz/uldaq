@@ -145,3 +145,6 @@ If Doxygen is installed and you wish to build the API documentation on your syst
   $ cd doc
   $ doxygen Doxyfile
 ```
+
+### Change list
+Changes in each release of uldaq can be found [here] (https://github.com/sbazaz/uldaq/blob/master/README.md)
