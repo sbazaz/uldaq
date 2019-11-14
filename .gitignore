@@ -15,7 +15,6 @@ INSTALL
 depcomp
 aclocal.m4
 compile
-config.guess
 config.h*
 config.log
 config.status
