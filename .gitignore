@@ -12,7 +12,6 @@ m4/
 autom4te.cache
 INSTALL
 depcomp
-aclocal.m4
 compile
 config.log
 config.status
