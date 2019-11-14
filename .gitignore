@@ -39,4 +39,5 @@ examples/*
 !examples/*.c
 !examples/*.h
 !examples/*.am
+!examples/*.in
 
