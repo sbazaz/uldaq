@@ -1,6 +1,5 @@
 .deps
 .libs
-missing
 *~
 src/*.sh
 examples/*
