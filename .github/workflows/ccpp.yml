@@ -9,8 +9,12 @@ jobs:
     
     steps:
     - uses: actions/checkout@v1
+    - name: Install auto tools
+      run: sudo apt-get install autoconf automake libtool-bin
     - name: Install libusb
       run: sudo apt-get install libusb-1.0-0-dev
+    - name: autoregonf
+      run:  sudo autoreconf -ivf
     - name: configure
       run: ./configure
     - name: make
