@@ -14,7 +14,6 @@ autom4te.cache
 INSTALL
 install-sh
 depcomp
-configure
 aclocal.m4
 compile
 config.guess
