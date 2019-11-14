@@ -12,7 +12,6 @@ stamp-h1
 m4/
 autom4te.cache
 INSTALL
-install-sh
 depcomp
 aclocal.m4
 compile
