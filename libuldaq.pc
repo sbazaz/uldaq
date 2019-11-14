@@ -1,0 +1,11 @@
+prefix=/usr/local
+exec_prefix=${prefix}
+libdir=${exec_prefix}/lib
+includedir=${prefix}/include
+
+Name: libuldaq
+Description: Universal Library for Linux
+Version: 1.1.2-b10
+Libs: -L${libdir} -libuldaq
+Libs.private: -lusb-1.0 
+Cflags: -I${includedir}
