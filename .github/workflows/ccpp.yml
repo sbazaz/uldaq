@@ -10,7 +10,7 @@ jobs:
     steps:
     - uses: actions/checkout@v1
     - name: Install libusb
-      run: apt-get install libusb-1.0-0-dev
+      run: sudo apt-get install libusb-1.0-0-dev
     - name: configure
       run: ./configure
     - name: make
