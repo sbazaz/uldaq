@@ -14,7 +14,6 @@ INSTALL
 depcomp
 aclocal.m4
 compile
-config.h*
 config.log
 config.status
 ar-lib
