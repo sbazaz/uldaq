@@ -2366,7 +2366,7 @@ LTLDFLAGS="-version-info ${lt_current}:${lt_revision}:${lt_age}"
 CFLAGS='-O3'
 CXXFLAGS='-O3'
 
-am__api_version='1.14'
+am__api_version='1.15'
 
 ac_aux_dir=
 for ac_dir in "$srcdir" "$srcdir/.." "$srcdir/../.."; do
