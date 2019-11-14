@@ -1,8 +1,7 @@
 /*
  * UsbScanTransferIn.cpp
  *
- *  Created on: Sep 18, 2015
- *      Author: root
+ *      Author: Measurement Computing Corporation
  */
 #include <cstring>
 #include <unistd.h>
@@ -84,6 +83,7 @@ void UsbScanTransferIn::initilizeTransfers(IoDevice* ioDevice, int endpointAddre
 
 	if(mEnabledDaqEvents & DE_ON_DATA_AVAILABLE)
 	{
+		mCurrentEventCount = 0;
 		mAvailableCount = mDaqEventHandler->getEventParameter(DE_ON_DATA_AVAILABLE) * mIoDevice->scanChanCount();
 		mNextEventCount = mAvailableCount;
 	}
@@ -149,19 +149,22 @@ void LIBUSB_CALL UsbScanTransferIn::tarnsferCallback(libusb_transfer* transfer)
 
 	if(transfer->status == LIBUSB_TRANSFER_COMPLETED)
 	{
-		if(!This->mIoDevice->allScanSamplesTransferred() && This->mResubmit)
+		if(!This->mIoDevice->scanErrorOccurred()) // only DT devices set this to true
 		{
-			This->mIoDevice->processScanData(transfer);
-
-			unsigned long long samplesTransfered = This->mIoDevice->totalScanSamplesTransferred();
-
-			if(This->mEnabledDaqEvents & DE_ON_DATA_AVAILABLE)
+			if(!This->mIoDevice->allScanSamplesTransferred() && This->mResubmit)
 			{
-				if(isDataAvailable(samplesTransfered, This->mCurrentEventCount, This->mNextEventCount))
+				This->mIoDevice->processScanData(transfer);
+
+				unsigned long long samplesTransfered = This->mIoDevice->totalScanSamplesTransferred();
+
+				if(This->mEnabledDaqEvents & DE_ON_DATA_AVAILABLE)
 				{
-					This->mCurrentEventCount = samplesTransfered;
-					This->mNextEventCount = This->mCurrentEventCount + This->mAvailableCount;
-					This->mDaqEventHandler->setCurrentEventAndData(DE_ON_DATA_AVAILABLE, This->mCurrentEventCount / This->mIoDevice->scanChanCount());
+					if(isDataAvailable(samplesTransfered, This->mCurrentEventCount, This->mNextEventCount))
+					{
+						This->mCurrentEventCount = samplesTransfered;
+						This->mNextEventCount = This->mCurrentEventCount + This->mAvailableCount;
+						This->mDaqEventHandler->setCurrentEventAndData(DE_ON_DATA_AVAILABLE, This->mCurrentEventCount / This->mIoDevice->scanChanCount());
+					}
 				}
 			}
 		}
@@ -207,7 +210,10 @@ void LIBUSB_CALL UsbScanTransferIn::tarnsferCallback(libusb_transfer* transfer)
 		}*/
 	}
 
-	This->mXferEvent.signal();
+	// DT devices will continue sending data even when scan error occurs, we manually prevent
+	// mXferEvent to send signal to the status thread so the wait times out and the status thread performs status check
+	if(!This->mIoDevice->scanErrorOccurred()) // only DT devices set this true
+		This->mXferEvent.signal();
 }
 
 void UsbScanTransferIn::stopTransfers()
@@ -261,7 +267,7 @@ void UsbScanTransferIn::startXferStateThread()
 		status = pthread_create(&mXferStateThreadHandle, &attr, &xferStateThread, this);
 
 #ifndef __APPLE__
-		pthread_setname_np(mXferStateThreadHandle, "xfer_state_td");
+		pthread_setname_np(mXferStateThreadHandle, "xfer_in_state_td");
 #endif
 
 		if(status)

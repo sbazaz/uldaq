@@ -1,7 +1,6 @@
 /*
  * UsbScanTransferOut.cpp
  *
- *  Created on: Oct 31, 2017
  *     Author: Measurement Computing Corporation
  */
 
@@ -119,24 +118,22 @@ void LIBUSB_CALL UsbScanTransferOut::tarnsferCallback(libusb_transfer* transfer)
 
 	if(transfer->status == LIBUSB_TRANSFER_COMPLETED)
 	{
-		/*if(!This->mIoDevice->allScanSamplesTransferred() && This->mResubmit)
+		if(!This->mIoDevice->scanErrorOccurred()) // only DT devices set this to true
 		{
-			This->mIoDevice->processScanData(transfer, This->mStageSize);
+			//check if processScanData() has set allScanSamplesTransferred to true, if that's the case then no need to resubmit
+			//the request. Also we should not set mNewSamplesSent to true to prevent sending the tmr command
+			if(!This->mIoDevice->allScanSamplesTransferred() && This->mResubmit)
+			{
+				actualStageSize = This->mIoDevice->processScanData(transfer, This->mStageSize);
 
-			// add sample available event signal
-		}*/
+				transfer->length = actualStageSize;
 
-		//check if processScanData() has set allScanSamplesTransferred to true, if that's the case then no need to resubmit
-		//the request. Also we should not set mNewSamplesSent to true to prevent sending the tmr command
-		if(!This->mIoDevice->allScanSamplesTransferred() && This->mResubmit)
-		{
-			actualStageSize = This->mIoDevice->processScanData(transfer, This->mStageSize);
+				libusb_submit_transfer(transfer);
 
-			transfer->length = actualStageSize;
-
-			libusb_submit_transfer(transfer);
-
-			This->mNewSamplesSent = true;
+				This->mNewSamplesSent = true;
+			}
+			else
+				This->mNumXferPending--;
 		}
 		else
 			This->mNumXferPending--;
@@ -166,7 +163,10 @@ void LIBUSB_CALL UsbScanTransferOut::tarnsferCallback(libusb_transfer* transfer)
 
 	}
 
-	This->mXferEvent.signal();
+	// DT devices will continue receiving data even when scan error occurs, we manually prevent
+	// mXferEvent to send signal to the status thread so the wait times out and the status thread performs status check
+	if(!This->mIoDevice->scanErrorOccurred()) // only DT devices set this true
+		This->mXferEvent.signal();
 }
 
 void UsbScanTransferOut::stopTransfers(bool delay)
@@ -222,7 +222,7 @@ void UsbScanTransferOut::startXferStateThread()
 		status = pthread_create(&mXferStateThreadHandle, &attr, &xferStateThread, this);
 
 #ifndef __APPLE__
-		pthread_setname_np(mXferStateThreadHandle, "xfer_state_td");
+		pthread_setname_np(mXferStateThreadHandle, "xfer_out_state_td");
 #endif
 
 		if(status)

@@ -1,8 +1,7 @@
 /*
  * AiInfo.h
  *
- *  Created on: Sep 24, 2015
- *      Author: root
+ *      Author: Measurement Computing Corporation
  */
 
 #ifndef AIINFO_H_
@@ -100,6 +99,9 @@ public:
 	void setNumCjcChans(int numChans);
 	int getNumCjcChans() const;
 
+	void supportsIepe(bool val);
+	bool supportsIepe() const;
+
 private:
 	std::vector<AiChanInfo> mAiChanInfo;
 	std::vector<Range> mSERanges;
@@ -136,6 +138,7 @@ private:
 	long long mTInArrayFlags;
 
 	int mNumCjcChans;
+	bool mSupportsIepe;
 
 };
 

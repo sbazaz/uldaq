@@ -13,12 +13,11 @@
 #include "../utility/UlLock.h"
 #include "UsbScanTransferIn.h"
 #include "UsbScanTransferOut.h"
+#include "UsbDtDevice.h"
 
 #if LIBUSBX_API_VERSION < 0x01000102
 #error libusb version 1.0.16 or later is required to compile this package.
 #endif
-
-#define NO_PERMISSION_STR		"NO PERMISSION"
 
 namespace ul
 {
@@ -136,16 +135,17 @@ std::vector<DaqDeviceDescriptor> UsbDaqDevice::findDaqDevices()
 				UL_LOG("failed to get device descriptor");
 			}
 
-			if(desc.idVendor == MCC_USB_VID && DaqDeviceManager::isDaqDeviceSupported(desc.idProduct))
+			if((desc.idVendor == MCC_USB_VID || desc.idVendor == DT_USB_VID) &&
+			   DaqDeviceManager::isDaqDeviceSupported(desc.idProduct, desc.idVendor))
 			{
 				if(!isHidDevice(dev))
 				{
 					DaqDeviceDescriptor daqDevDescriptor;
 					memset(&daqDevDescriptor, 0,sizeof(DaqDeviceDescriptor));
 
-					daqDevDescriptor.productId = desc.idProduct;
+					daqDevDescriptor.productId = getVirtualProductId(dev, desc);
 					daqDevDescriptor.devInterface = USB_IFC;
-					std::string productName = DaqDeviceManager::getDeviceName(desc.idProduct);
+					std::string productName = DaqDeviceManager::getDeviceName(daqDevDescriptor.productId, desc.idVendor);
 
 					strncpy(daqDevDescriptor.productName, productName.c_str(), sizeof(daqDevDescriptor.productName) - 1);
 					strncpy(daqDevDescriptor.devString, productName.c_str(), sizeof(daqDevDescriptor.devString) - 1);
@@ -245,6 +245,7 @@ void UsbDaqDevice::establishConnection()
 	if(numDevs > 0)
 	{
 		int devNum = 0;
+		unsigned int actualProductId;
 
 		while ((dev = devs[devNum++]) != NULL)
 		{
@@ -261,9 +262,10 @@ void UsbDaqDevice::establishConnection()
 				continue;
 			}
 
+			actualProductId = getActualProductId(desc.idVendor, mDaqDeviceDescriptor.productId);
 
-			if(((desc.idVendor == MCC_USB_VID && DaqDeviceManager::isDaqDeviceSupported(desc.idProduct))) &&
-			   (mDaqDeviceDescriptor.productId == desc.idProduct))
+			if((((desc.idVendor == MCC_USB_VID || desc.idVendor == DT_USB_VID) && DaqDeviceManager::isDaqDeviceSupported(desc.idProduct, desc.idVendor))) &&
+			   (actualProductId == desc.idProduct))
 			{
 				char serialNum[128] = {0};
 
@@ -275,6 +277,12 @@ void UsbDaqDevice::establishConnection()
 					UL_LOG("USB Device Found.");
 
 					mRawFwVersion = desc.bcdDevice;
+
+					if(mRawFwVersion < mMinRawFwVersion)
+					{
+						libusb_free_device_list(devs, 1);
+						throw UlException(ERR_INCOMPATIBLE_FIRMWARE);
+					}
 
 					int status = libusb_open(dev, &mDevHandle);
 
@@ -350,14 +358,11 @@ void UsbDaqDevice::establishConnection()
 	else
 		UL_LOG("No USB device found!");
 
-	if(!found)
-	{
-		libusb_free_device_list(devs, 1);
-
-		throw UlException(ERR_DEV_NOT_FOUND);
-	}
 
 	libusb_free_device_list(devs, 1);
+
+	if(!found)
+		throw UlException(ERR_DEV_NOT_FOUND);
 
 #ifdef __APPLE__
 	usleep(100000);
@@ -396,23 +401,11 @@ int UsbDaqDevice::sendCmd(uint8_t request, uint16_t wValue, uint16_t wIndex, uns
 
 	UlError err = send(request, wValue, wIndex, buff, buffLen, &sent, timeout);
 
-	/*if(err)
-	{
-		if(err == ERR_DEV_NOT_FOUND && mConnected)
-		{
-			err = restablishConnection();
-
-			if(!err)
-				err = send(request, wValue, wIndex, buff, buffLen, &sent, timeout);
-		}
-	}*/
-
 	if(err)
 		throw UlException(err);
 
 	return sent;
 }
-
 
 // this function is not thread safe. Always use sendCmd
 UlError UsbDaqDevice::send(uint8_t request, uint16_t wValue, uint16_t wIndex, unsigned char *buff, uint16_t buffLen, int* sent, unsigned int timeout) const
@@ -455,24 +448,13 @@ UlError UsbDaqDevice::send(uint8_t request, uint16_t wValue, uint16_t wIndex, un
 	return err;
 }
 
-int UsbDaqDevice::queryCmd(uint8_t request, uint16_t wValue, uint16_t wIndex, unsigned char *buff, uint16_t buffLen, unsigned int timeout) const
+int UsbDaqDevice::queryCmd(uint8_t request, uint16_t wValue, uint16_t wIndex, unsigned char *buff, uint16_t buffLen, unsigned int timeout, bool checkReplySize) const
 {
 	int received = 0;
 
 	UlLock lock(mIoMutex);
 
-	UlError err = query(request, wValue, wIndex, buff, buffLen, &received, timeout);
-
-	/*if(err)
-	{
-		if(err == ERR_DEV_NOT_FOUND && mConnected)
-		{
-			err = restablishConnection();
-
-			if(!err)
-				err = query(request, wValue, wIndex, buff, buffLen, &received, timeout);
-		}
-	}*/
+	UlError err = query(request, wValue, wIndex, buff, buffLen, &received, timeout, checkReplySize);
 
 	if(err)
 		throw UlException(err);
@@ -481,7 +463,7 @@ int UsbDaqDevice::queryCmd(uint8_t request, uint16_t wValue, uint16_t wIndex, un
 }
 
 // this function is not thread safe. Always use sendCmd
-UlError UsbDaqDevice::query(uint8_t request, uint16_t wValue, uint16_t wIndex, unsigned char *buff, uint16_t buffLen, int* recevied, unsigned int timeout) const
+UlError UsbDaqDevice::query(uint8_t request, uint16_t wValue, uint16_t wIndex, unsigned char *buff, uint16_t buffLen, int* recevied, unsigned int timeout, bool checkReplySize) const
 {
 	UlError err = ERR_NO_ERROR;
 	int status = 0;
@@ -494,7 +476,7 @@ UlError UsbDaqDevice::query(uint8_t request, uint16_t wValue, uint16_t wIndex, u
 		{
 			status = libusb_control_transfer(mDevHandle, requestType, request, wValue, wIndex, buff, buffLen, timeout);
 
-			if (status != buffLen)
+			if (status < 0)
 			{
 				if (status < 0)
 					UL_LOG("#### libusb_control_transfer failed : " << libusb_error_name(status));
@@ -503,12 +485,20 @@ UlError UsbDaqDevice::query(uint8_t request, uint16_t wValue, uint16_t wIndex, u
 
 				if(status == LIBUSB_ERROR_NO_DEVICE)
 					err = ERR_DEV_NOT_CONNECTED; // ERR_DEV_NOT_FOUND;
+				else if(status == LIBUSB_ERROR_OVERFLOW)
+					err = ERR_BAD_BUFFER_SIZE;
 				else
 					err = ERR_DEAD_DEV;
 			}
 			else
 			{
+				if(checkReplySize)
+				{
+					if(status != buffLen)
+						err = ERR_DEAD_DEV;
+				}
 				*recevied = buffLen;
+
 				UL_LOG("Bytes received: " << *recevied);
 			}
 		}
@@ -548,6 +538,9 @@ void UsbDaqDevice::flashLed(int flashCount) const
 
 void UsbDaqDevice::readSerialNumber(libusb_device *dev, libusb_device_descriptor descriptor, char* serialNum)
 {
+	if(descriptor.idVendor == DT_USB_VID)
+		return UsbDtDevice::readSerialNumber(dev, descriptor, serialNum);
+
 	libusb_device_handle *devHandle = NULL;
 
 	int status = libusb_open(dev, &devHandle);
@@ -566,6 +559,31 @@ void UsbDaqDevice::readSerialNumber(libusb_device *dev, libusb_device_descriptor
 	{
 		if(status == LIBUSB_ERROR_ACCESS)
 			strcpy(serialNum, NO_PERMISSION_STR);
+
+		std::cout << "libusb_open() failed: " << libusb_error_name(status);
+	}
+}
+
+void UsbDaqDevice::readProductName(libusb_device *dev, libusb_device_descriptor descriptor, char* productName)
+{
+	libusb_device_handle *devHandle = NULL;
+
+	int status = libusb_open(dev, &devHandle);
+
+	if (status == 0)
+	{
+		unsigned char name[128] = {0};
+		int numBytes = libusb_get_string_descriptor_ascii(devHandle, descriptor.iProduct, name, sizeof(name));
+
+		if(numBytes > 0 )
+			strcpy(productName, (char*)name);
+
+		libusb_close(devHandle);
+	}
+	else
+	{
+		if(status == LIBUSB_ERROR_ACCESS)
+			strcpy(productName, NO_PERMISSION_STR);
 
 		std::cout << "libusb_open() failed: " << libusb_error_name(status);
 	}
@@ -680,7 +698,6 @@ int UsbDaqDevice::memWrite_SingleCmd(MemoryType memType, MemRegion memRegionType
 	return totalBytesWritten;
 }
 
-
 int UsbDaqDevice::memRead_MultiCmd(MemoryType memType, MemRegion memRegionType, unsigned int address, unsigned char* buffer, unsigned int count) const
 {
 	check_MemRW_Args(memRegionType, MA_READ, address, buffer, count, false);
@@ -700,6 +717,10 @@ int UsbDaqDevice::memRead_MultiCmd(MemoryType memType, MemRegion memRegionType, 
 		cmd = getCmdValue(CMD_MEM_CAL_KEY);
 	else if(memRegionType == MR_USER)
 		cmd = getCmdValue(CMD_MEM_USER_KEY);
+	else if(memRegionType == MR_SETTINGS)
+		cmd = getCmdValue(CMD_MEM_SETTINGS_KEY);
+	else if(memRegionType == MR_RESERVED0)
+		cmd = getCmdValue(CMD_MEM_RESERVED_KEY);
 	else
 		throw UlException(ERR_BAD_MEM_REGION);
 
@@ -746,6 +767,10 @@ int UsbDaqDevice::memWrite_MultiCmd(MemoryType memType, MemRegion memRegionType,
 		cmd = getCmdValue(CMD_MEM_CAL_KEY);
 	else if(memRegionType == MR_USER)
 		cmd = getCmdValue(CMD_MEM_USER_KEY);
+	else if(memRegionType == MR_SETTINGS)
+		cmd = getCmdValue(CMD_MEM_SETTINGS_KEY);
+	else if(memRegionType == MR_RESERVED0)
+		cmd = getCmdValue(CMD_MEM_RESERVED_KEY);
 	else
 		throw UlException(ERR_BAD_MEM_REGION);
 
@@ -814,7 +839,7 @@ void UsbDaqDevice::registerHotplugCallBack()
 
 	if(libusb_has_capability(LIBUSB_CAP_HAS_HOTPLUG))
 	{
-		int status = libusb_hotplug_register_callback(NULL, (libusb_hotplug_event) (LIBUSB_HOTPLUG_EVENT_DEVICE_ARRIVED | LIBUSB_HOTPLUG_EVENT_DEVICE_LEFT),
+		int status = libusb_hotplug_register_callback(mLibUsbContext, (libusb_hotplug_event) (LIBUSB_HOTPLUG_EVENT_DEVICE_ARRIVED | LIBUSB_HOTPLUG_EVENT_DEVICE_LEFT),
 												  	  (libusb_hotplug_flag)0, MCC_USB_VID, LIBUSB_HOTPLUG_MATCH_ANY, LIBUSB_HOTPLUG_MATCH_ANY,
 												  	  hotplugCallback, NULL, &mHotplugHandle);
 		if (status != LIBUSB_SUCCESS)
@@ -1177,21 +1202,51 @@ bool UsbDaqDevice::isHidDevice(libusb_device* dev)
 	bool hidDevice = false;
 	struct libusb_config_descriptor *conf_desc = NULL;
 
-	libusb_get_config_descriptor(dev, 0, &conf_desc);
-	if (conf_desc && conf_desc->bNumInterfaces > 0)
-	{
-		const struct libusb_interface *intf = &conf_desc->interface[0];
+	int status = libusb_get_config_descriptor(dev, 0, &conf_desc);
 
-		if(intf->num_altsetting > 0)
+	if (status == LIBUSB_SUCCESS)
+	{
+		if (conf_desc->bNumInterfaces > 0)
 		{
-			const struct libusb_interface_descriptor *intf_desc;
-			intf_desc = &intf->altsetting[0];
-			if (intf_desc->bInterfaceClass == LIBUSB_CLASS_HID)
-				hidDevice = true;
+			const struct libusb_interface *intf = &conf_desc->interface[0];
+
+			if(intf->num_altsetting > 0)
+			{
+				const struct libusb_interface_descriptor *intf_desc;
+				intf_desc = &intf->altsetting[0];
+				if (intf_desc->bInterfaceClass == LIBUSB_CLASS_HID)
+					hidDevice = true;
+			}
 		}
+
+		libusb_free_config_descriptor(conf_desc);
 	}
 
 	return hidDevice;
+}
+
+unsigned int UsbDaqDevice::getVirtualProductId(libusb_device* dev, libusb_device_descriptor descriptor)
+{
+	unsigned int vProductId = descriptor.idProduct;
+
+	if(descriptor.idVendor == DT_USB_VID)
+	{
+		vProductId = UsbDtDevice::getVirtualProductId(dev, descriptor);
+	}
+
+	return vProductId;
+}
+
+unsigned int UsbDaqDevice::getActualProductId(unsigned int vendorId, unsigned int vProductId)
+{
+	unsigned int productId = vProductId;
+
+	if(vendorId == DT_USB_VID)
+	{
+		productId = UsbDtDevice::getActualProductId(vProductId);
+	}
+
+	return productId;
 }
 
 } /* namespace ul */

@@ -73,6 +73,11 @@ void DioUsbSsrxx::dOut(DigitalPortType portType, unsigned long long data)
 {
 	check_DOut_Args(portType, data);
 
+	std::bitset<32> portDirectionMask = getPortDirection(portType);
+
+	if(portDirectionMask.any())
+		throw UlException(ERR_WRONG_DIG_CONFIG);
+
 	unsigned short portNum = mDioInfo.getPortNum(portType) + mPortOffset;
 
 	unsigned char val = data;
@@ -105,6 +110,16 @@ void DioUsbSsrxx::dOutArray(DigitalPortType lowPort, DigitalPortType highPort, u
 
 	unsigned int lowPortNum = mDioInfo.getPortNum(lowPort);
 	unsigned int highPortNum = mDioInfo.getPortNum(highPort);
+
+	std::bitset<32> portDirectionMask;
+
+	for(unsigned int portNum = lowPortNum; portNum <= highPortNum; portNum++)
+	{
+		portDirectionMask = getPortDirection(mDioInfo.getPortType(portNum));
+
+		if(portDirectionMask.any())
+			throw UlException(ERR_WRONG_DIG_CONFIG);
+	}
 
 	if(mNewMicro)
 	{
@@ -148,6 +163,11 @@ bool DioUsbSsrxx::dBitIn(DigitalPortType portType, int bitNum)
 void DioUsbSsrxx::dBitOut(DigitalPortType portType, int bitNum, bool bitValue)
 {
 	check_DBitOut_Args(portType, bitNum);
+
+	std::bitset<32> portDirectionMask = getPortDirection(portType);
+
+	if(portDirectionMask[bitNum])
+		throw UlException(ERR_WRONG_DIG_CONFIG);
 
 	unsigned char portNum = mDioInfo.getPortNum(portType) + mPortOffset;
 

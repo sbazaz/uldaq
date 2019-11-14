@@ -37,6 +37,7 @@ TcType AiConfig::getChanTcType(int channel)
 	return mAiDevice.getCfg_ChanTcType(channel);
 }
 
+/*
 void AiConfig::setScanChanTempUnit(int channel, TempUnit unit)
 {
 	mAiDevice.setCfg_ScanChanTempUnit(channel, unit);
@@ -45,11 +46,16 @@ void AiConfig::setScanChanTempUnit(int channel, TempUnit unit)
 TempUnit AiConfig::getScanChanTempUnit(int channel)
 {
 	return mAiDevice.getCfg_ScanChanTempUnit(channel);
-}
+}*/
 
 void AiConfig::setScanTempUnit(TempUnit unit)
 {
 	mAiDevice.setCfg_ScanTempUnit(unit);
+}
+
+TempUnit AiConfig::getScanTempUnit()
+{
+	return mAiDevice.getCfg_ScanTempUnit();
 }
 
 void AiConfig::setAutoZeroMode(AutoZeroMode mode)
@@ -121,14 +127,14 @@ double AiConfig::getChanOffset(int channel)
 	return mAiDevice.getCfg_ChanOffset(channel);
 }
 
-unsigned long long AiConfig::getCalDate()
+unsigned long long AiConfig::getCalDate(int calTableIndex)
 {
-	return mAiDevice.getCfg_CalDate();
+	return mAiDevice.getCfg_CalDate(calTableIndex);
 }
 
-void AiConfig::getCalDateStr(char* calDate, unsigned int* maxStrLen)
+void AiConfig::getCalDateStr(int calTableIndex, char* calDate, unsigned int* maxStrLen)
 {
-	return mAiDevice.getCfg_CalDateStr(calDate, maxStrLen);
+	return mAiDevice.getCfg_CalDateStr(calTableIndex, calDate, maxStrLen);
 }
 
 void AiConfig::getChanCoefsStr(int channel, char* coefs, unsigned int* maxStrLen)
@@ -139,6 +145,23 @@ void AiConfig::getChanCoefsStr(int channel, char* coefs, unsigned int* maxStrLen
 SensorConnectionType AiConfig::getChanSensorConnectionType(int channel)
 {
 	return mAiDevice.getCfg_SensorConnectionType(channel);
+}
+
+void AiConfig::setChanDataRate(int channel, double rate)
+{
+	mAiDevice.setCfg_ChanDataRate(channel, rate);
+}
+double AiConfig::getChanDataRate(int channel)
+{
+	return mAiDevice.getCfg_ChanDataRate(channel);
+}
+void AiConfig::setChanOpenTcDetectionMode(int channel, OtdMode mode)
+{
+	mAiDevice.setCfg_ChanOpenTcDetectionMode(channel, mode);
+}
+OtdMode AiConfig::getChanOpenTcDetectionMode(int channel)
+{
+	return mAiDevice.getCfg_ChanOpenTcDetectionMode(channel);
 }
 
 } /* namespace ul */

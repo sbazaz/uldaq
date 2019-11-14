@@ -1,7 +1,6 @@
 /*
  * DaqODevice.cpp
  *
- *  Created on: Dec 18, 2017
  *     Author: Measurement Computing Corporation
  */
 
@@ -223,6 +222,8 @@ void DaqODevice::check_DaqOutScan_Args(DaqOutChanDescriptor chanDescriptors[], i
 		if(~mDaqOInfo.getScanOptions() & options)
 			throw UlException(ERR_BAD_OPTION);
 
+		if(~mDaqOInfo.getDaqOutScanFlags() & flags)
+			throw UlException(ERR_BAD_FLAG);
 
 		if((!(options & SO_EXTCLOCK) && invalidRate) || (rate <= 0.0))
 			throw UlException(ERR_BAD_RATE);

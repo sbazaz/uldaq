@@ -1,7 +1,6 @@
 /*
  * DaqDeviceInternal.h
  *
- *  Created on: Jul 29, 2015
  *     Author: Measurement Computing Corporation
  */
 
@@ -115,12 +114,17 @@ public:
 	IoDevice* getIoDevice(FunctionType functionType) const;
 	TriggerConfig getTriggerConfig(FunctionType functionType) const;
 
+	pthread_mutex_t& getDeviceMutex() const { return mDeviceMutex;}
+
+	bool hasExp() const { return mHasExp;}
+
 	//////////////////////          Configuration functions          /////////////////////////////////
-	void getCfg_FwVersionStr(char* fpgaVerStr, unsigned int* maxStrLen) const;
+	void getCfg_FwVersionStr(DevVersionType verType, char* fpgaVerStr, unsigned int* maxStrLen) const;
 	void getCfg_FpgaVersionStr(char* fpgaVerStr, unsigned int* maxStrLen) const;
 	void getCfg_RadioVersionStr(char* fpgaVerStr, unsigned int* maxStrLen) const;
 
 protected:
+	void setMinRawFwVersion(unsigned short ver) { mMinRawFwVersion = ver;}
 	void check_MemRW_Args(MemRegion memRegionType, MemAccessType accessType, unsigned int address, unsigned char* buffer, unsigned int count, bool checkAccess = true) const;
 
 protected:
@@ -138,15 +142,22 @@ protected:
 	DaqODevice* mDaqODevice;
 	DaqEventHandler* mEventHandler;
 
+	unsigned short mMinRawFwVersion;
+
 	unsigned short mRawFwVersion;
 	unsigned short mRawFpgaVersion;
 	unsigned short mRawRadioVersion;
+	unsigned short mRawFwMeasurementVersion;
+	unsigned short mRawFwExpMeasurementVersion;
 
 	mutable unsigned long long mCurrentSuspendCount;
+
+	mutable bool mHasExp;
 
 private:
 	static unsigned long long mNextAvailableDeviceNumber;
 	static pthread_mutex_t mDeviceNumberMutex;
+	mutable pthread_mutex_t mDeviceMutex;
 	long long mDeviceNumber;
 	int mMemUnlockAddr;
 	unsigned int mMemUnlockCode;

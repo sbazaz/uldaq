@@ -1,7 +1,6 @@
 /*
  * CtrUsbCtrx.cpp
  *
- *  Created on: Jan 29, 2018
  *     Author: Measurement Computing Corporation
  */
 
@@ -170,7 +169,9 @@ double CtrUsbCtrx::cInScan(int lowCtrNum, int highCtrNum, int samplesPerCounter,
 			chanDescriptors[i].type = daqIChanType;
 		}
 
-		actualRate =  daqIDev->daqInScan(FT_CTR, chanDescriptors, numCtrs, samplesPerCounter, rate, options, (DaqInScanFlag) flags, data);
+		DaqInScanFlag daqInScanflags = (DaqInScanFlag) (flags & NOCLEAR); // only pass "no clear" flag to daqinscan if it is set
+
+		actualRate =  daqIDev->daqInScan(FT_CTR, chanDescriptors, numCtrs, samplesPerCounter, rate, options, daqInScanflags, data);
 
 		delete [] chanDescriptors;
 	}

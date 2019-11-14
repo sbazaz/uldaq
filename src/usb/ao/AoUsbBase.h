@@ -47,11 +47,14 @@ protected:
 
 private:
 	virtual unsigned int processScanData16(libusb_transfer* transfer, unsigned int stageSize);
+	virtual unsigned int processScanData32(libusb_transfer* transfer, unsigned int stageSize);
+
+protected:
+	int mTransferMode;
 
 private:
 	const UsbDaqDevice&  mUsbDevice;
 	int mScanEndpointAddr;
-	int mTransferMode;
 	unsigned char mScanStopCmd;
 };
 

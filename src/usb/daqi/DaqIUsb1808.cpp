@@ -1,7 +1,6 @@
 /*
  * DaqIUsb1808.cpp
  *
- *  Created on: Nov 14, 2017
  *     Author: Measurement Computing Corporation
  */
 
@@ -17,7 +16,7 @@ DaqIUsb1808::DaqIUsb1808(const UsbDaqDevice& daqDevice) : DaqIUsbBase(daqDevice)
 {
 	double minRate = daqDev().getClockFreq() / UINT_MAX;
 
-	mDaqIInfo.setDaqInScanFlags(DAQINSCAN_FF_NOSCALEDATA | DAQINSCAN_FF_NOCALIBRATEDATA);
+	mDaqIInfo.setDaqInScanFlags(DAQINSCAN_FF_NOSCALEDATA | DAQINSCAN_FF_NOCALIBRATEDATA | DAQINSCAN_FF_NOCLEAR);
 	mDaqIInfo.setScanOptions(SO_DEFAULTIO | SO_CONTINUOUS | SO_EXTTRIGGER | SO_EXTCLOCK | SO_SINGLEIO | SO_BLOCKIO | SO_RETRIGGER);
 	mDaqIInfo.setTriggerTypes(TRIG_HIGH | TRIG_LOW | TRIG_POS_EDGE | TRIG_NEG_EDGE | TRIG_PATTERN_EQ | TRIG_PATTERN_NE | TRIG_PATTERN_ABOVE | TRIG_PATTERN_BELOW);
 
@@ -56,6 +55,8 @@ DaqIUsb1808::~DaqIUsb1808()
 
 double DaqIUsb1808::daqInScan(FunctionType functionType, DaqInChanDescriptor chanDescriptors[], int numChans, int samplesPerChan, double rate, ScanOption options, DaqInScanFlag flags, void* data)
 {
+	UlLock lock(mIoDeviceMutex);
+
 	check_DaqInScan_Args(chanDescriptors, numChans, samplesPerChan, rate, options, flags, data);
 
 	UlLock trigCmdLock(daqDev().getTriggerCmdMutex());

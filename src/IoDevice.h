@@ -54,10 +54,14 @@ public:
 	virtual UlError waitUntilDone(double timeout);
 	void signalScanDoneWaitEvent() { mScanDoneWaitEvent.signal();}
 
+	bool scanErrorOccurred() { return mScanErrorFlag; }
+	void setscanErrorFlag() { mScanErrorFlag = true;}
+	void resetScanErrorFlag() { mScanErrorFlag = false; }
+
 protected:
 	void setScanInfo(FunctionType functionType, int chanCount, int samplesPerChanCount, int sampleSize, unsigned int analogResolution, ScanOption options, long long flags, std::vector<CalCoef> calCoefs, std::vector<CustomScale> customScales, void* dataBuffer);
 	void setScanInfo(FunctionType functionType, int chanCount, int samplesPerChanCount, int sampleSize, unsigned int analogResolution, ScanOption options, long long flags, std::vector<CalCoef> calCoefs, void* dataBuffer);
-	virtual unsigned int calcPacerPeriod(double rate, ScanOption options);
+	unsigned int calcPacerPeriod(double rate, ScanOption options);
 
 protected:
 	const DaqDevice& mDaqDevice;
@@ -98,6 +102,7 @@ private:
 	ScanStatus mScanState;
 	double mActualScanRate;
 	ThreadEvent mScanDoneWaitEvent;
+	bool mScanErrorFlag; // added for DT devices since scan error is obtained through a poll method
 };
 
 } /* namespace ul */

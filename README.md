@@ -1,41 +1,44 @@
-## uldaq (Beta)
-**Info:** Contains a library to access and control supported Measurement Computing DAQ devices over the Linux and macOS platforms. The UL for Linux binary name is libuldaq.
+## MCC Universal Library for Linux (uldaq)
+[![Coverity Scan Build Status](https://scan.coverity.com/projects/16116/badge.svg)](https://scan.coverity.com/projects/uldaq)
+
+**Info:** Contains a library to access and control supported Measurement Computing [DAQ devices](https://www.mccdaq.com/PDFs/Manuals/Linux-hw.pdf) over the Linux and macOS platforms. The UL for Linux binary name is libuldaq.
+
+**Author:** Measurement Computing
 
 ## About
 The **uldaq** package contains programming libraries and components for developing applications using C/C++ on Linux and macOS Operating Systems. An API (Application Programming Interface) for interacting with the library in Python is available as an additional installation. This package was created and is supported by MCC. 
 
 ### Prerequisites:
 ---------------
-Building the **uldaq** package requires C/C++ compilers, make tool, and the development package for libusb. The following describes how these prerequisites can be installed on different Linux distributions.
+Building the **uldaq** package requires C/C++ compilers, make tool, and the development package for libusb. The following describes how these prerequisites can be installed on different Linux distributions and macOS.
   
   - Debian-based Linux distributions such as Ubuntu, Raspbian
   
-  ``` sh
+  ```
      $ sudo apt-get install gcc g++ make
      $ sudo apt-get install libusb-1.0-0-dev
   ```
   - Arch-based Linux distributions such as Manjaro, Antergos
   
-  ``` sh
+  ```
      $ sudo pacman -S gcc make
      $ sudo pacman -S libusb
   ```
   - Red Hat-based Linux distributions such as Fedora, CentOS
   
-  ``` sh
+  ```
      $ sudo yum install gcc gcc-c++ make
      $ sudo yum install libusbx-devel
   ``` 
   - OpenSUSE 
   
-  ``` sh
+  ```
      $ sudo zypper install gcc gcc-c++ make
      $ sudo zypper install libusb-devel
   ```
+  - macOS (Version 10.11 or later recommended)
   
-  - MacOS (Version 10.11 or later recommended)
-  
-  ``` sh
+  ```
      $ xcode-select --install
      $ ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
      $ brew install libusb
@@ -46,23 +49,23 @@ Building the **uldaq** package requires C/C++ compilers, make tool, and the deve
 
 1. Download the latest version of **uldaq**:
 
-``` sh
+```
   Linux
-     $  wget https://github.com/sbazaz/uldaq/releases/download/v1.1.1/libuldaq-1.1.1.tar.bz2
-  
-  MacOS
-     $ curl -L -O  https://github.com/sbazaz/uldaq/releases/download/v1.1.1/libuldaq-1.1.1.tar.bz2
+     $ wget -N https://github.com/mccdaq/uldaq/releases/download/v1.1.2/libuldaq-1.1.2.tar.bz2
+
+  macOS
+     $ curl -L -O https://github.com/mccdaq/uldaq/releases/download/v1.1.2/libuldaq-1.1.2.tar.bz2
 ``` 
 2. Extract the tar file:
  
-``` sh
-  $ tar -xvjf libuldaq-1.1.1.tar.bz2
+```
+  $ tar -xvjf libuldaq-1.1.2.tar.bz2
 ```
   
 3. Run the following commands to build and install the library:
 
-``` sh
-  $ cd libuldaq-1.1.1
+```
+  $ cd libuldaq-1.1.2
   $ ./configure && make
   $ sudo make install
 ```
@@ -70,9 +73,9 @@ Building the **uldaq** package requires C/C++ compilers, make tool, and the deve
 **Note:** To install the Python interface, follow the above [build instructions](#build-instructions) then go to https://pypi.org/project/uldaq/ for further installation.
   
 ### Examples
-The C examples are located in the examples folder, Run the following commands to execute the analog input example 
+The C examples are located in the examples folder. Run the following commands to execute the analog input example: 
 
-``` sh
+```
   $ cd examples
   $ ./AIn
 ```
@@ -136,15 +139,19 @@ Run the following command to uninstall the library
   $ sudo make uninstall
 ``` 
 
+### Support/Feedback
+The **uldaq** package is supported by MCC. For support for uldaq, contact technical support through [support page](https://www.mccdaq.com/support/support_form.aspx). Please include detailed steps on how to reproduce the problem in your request.
+
 ### Documentation
 Online help for the Universal Library for Linux is available for [C/C++](https://www.mccdaq.com/PDFs/Manuals/UL-Linux/c/index.html) and [Python](https://www.mccdaq.com/PDFs/Manuals/UL-Linux/python/index.html).
 
 If Doxygen is installed and you wish to build the API documentation on your system, run the following commands:
 
-``` sh
+```
   $ cd doc
   $ doxygen Doxyfile
 ```
 
 ### Changelog
-The changelog for this project can be found [here](https://github.com/sbazaz/uldaq/blob/master/CHANGELOG.md)
+The changelog for this project can be found [here](https://github.com/mccdaq/uldaq/blob/master/CHANGELOG.md)
+

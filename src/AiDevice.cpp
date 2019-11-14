@@ -19,8 +19,10 @@ AiDevice::AiDevice(const DaqDevice& daqDevice) : IoDevice(daqDevice), UlAiDevice
 {
 	mAiConfig = new AiConfig(*this);
 	mCalDate = 0;
+	mFieldCalDate = 0;
 	mCalModeEnabled = false;
 	mScanTempChanSupported = false;
+	mScanTempUnit = TU_CELSIUS;
 }
 
 AiDevice::~AiDevice()
@@ -228,8 +230,6 @@ void AiDevice::check_AInSetTrigger_Args(TriggerType trigType, int trigChan, doub
 
 		if(retriggerCount > 0 && !(mAiInfo.getScanOptions() & SO_RETRIGGER))
 			throw UlException(ERR_BAD_RETRIG_COUNT);
-
-		//TODO add check for trigChan, lowThreshold and the rest of arguments for USB-2020 and any other devices that support analog trigger
 	}
 	else
 		throw UlException(ERR_BAD_DEV_TYPE);
@@ -487,13 +487,13 @@ void AiDevice::initCustomScales()
 	}
 }
 
-void AiDevice::initTempUnits()
+/*void AiDevice::initTempUnits()
 {
 	for(int i = 0; i < mAiInfo.getNumChans(); i++)
 	{
 		mScanChanTempUnit.push_back(TU_CELSIUS);
 	}
-}
+}*/
 
 void AiDevice::check_TIn_Args(int channel, TempScale scale, TInFlag flags) const
 {
@@ -568,10 +568,21 @@ void AiDevice::setCfg_ScanTempUnit(TempUnit unit)
 	if( unit < TU_CELSIUS || unit > TU_KELVIN)
 		throw UlException(ERR_BAD_UNIT);
 
-	for(unsigned int i = 0; i < mScanChanTempUnit.size(); i++)
-		mScanChanTempUnit[i] = unit;
+	mScanTempUnit = unit;
+
+	//for(unsigned int i = 0; i < mScanChanTempUnit.size(); i++)
+	//	mScanChanTempUnit[i] = unit;
 }
 
+TempUnit AiDevice::getCfg_ScanTempUnit() const
+{
+	if(!mScanTempChanSupported)
+		throw UlException(ERR_CONFIG_NOT_SUPPORTED);
+
+	return mScanTempUnit;
+}
+
+/*
 void AiDevice::setCfg_ScanChanTempUnit(int channel, TempUnit unit)
 {
 	if(!mScanTempChanSupported)
@@ -594,7 +605,7 @@ TempUnit AiDevice::getCfg_ScanChanTempUnit(int channel) const
 			throw UlException(ERR_BAD_AI_CHAN);
 
 	return mScanChanTempUnit[channel];
-}
+}*/
 
 void AiDevice::setCfg_AutoZeroMode(AutoZeroMode mode)
 {
@@ -675,18 +686,29 @@ double AiDevice::getCfg_ChanOffset(int channel)
 	return mCustomScales[channel].offset;
 }
 
-unsigned long long AiDevice::getCfg_CalDate()
+unsigned long long AiDevice::getCfg_CalDate(int calTableIndex)
 {
 	mDaqDevice.checkConnection();
 
-	return mCalDate;
+	unsigned long long calDate = 0;
+
+	if(calTableIndex == 0)
+	{
+		calDate = mCalDate;
+	}
+	else if(calTableIndex == 1)
+	{
+		calDate = mFieldCalDate;
+	}
+
+	return calDate;
 }
 
-void AiDevice::getCfg_CalDateStr(char* calDate, unsigned int* maxStrLen)
+void AiDevice::getCfg_CalDateStr(int calTableIndex, char* calDate, unsigned int* maxStrLen)
 {
 	mDaqDevice.checkConnection();
 
-	long int calDateSec = mCalDate;
+	long int calDateSec = getCfg_CalDate(calTableIndex);
 
 	// convert seconds to string
 	struct tm *timeinfo;
@@ -715,6 +737,24 @@ SensorConnectionType AiDevice::getCfg_SensorConnectionType(int channel) const
 }
 
 void AiDevice::getCfg_ChanCoefsStr(int channel, char* coefsStr, unsigned int* len) const
+{
+	throw UlException(ERR_CONFIG_NOT_SUPPORTED);
+}
+
+void  AiDevice::setCfg_ChanDataRate(int channel, double rate)
+{
+	throw UlException(ERR_CONFIG_NOT_SUPPORTED);
+}
+double  AiDevice::getCfg_ChanDataRate(int channel) const
+{
+	throw UlException(ERR_CONFIG_NOT_SUPPORTED);
+}
+
+void  AiDevice::setCfg_ChanOpenTcDetectionMode(int channel, OtdMode mode)
+{
+	throw UlException(ERR_CONFIG_NOT_SUPPORTED);
+}
+OtdMode  AiDevice::getCfg_ChanOpenTcDetectionMode(int channel) const
 {
 	throw UlException(ERR_CONFIG_NOT_SUPPORTED);
 }

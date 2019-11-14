@@ -59,8 +59,8 @@ void AoDevice::setTrigger(TriggerType type, int trigChan,  double level, double 
 
 		mTrigCfg.type = type;
 		mTrigCfg.trigChan = trigChan;
-		mTrigCfg.level = round(level);
-		mTrigCfg.variance = round(variance);
+		mTrigCfg.level = level;
+		mTrigCfg.variance = variance;
 		mTrigCfg.retrigCount = retriggerCount;
 	}
 	else
@@ -414,6 +414,16 @@ void AoDevice::setCfg_SyncMode(AOutSyncMode mode)
 	throw UlException(ERR_CONFIG_NOT_SUPPORTED);
 }
 AOutSyncMode AoDevice::getCfg_SyncMode() const
+{
+	throw UlException(ERR_CONFIG_NOT_SUPPORTED);
+}
+
+void AoDevice::setCfg_SenseMode(int channel, AOutSenseMode mode)
+{
+	throw UlException(ERR_CONFIG_NOT_SUPPORTED);
+}
+
+AOutSenseMode AoDevice::getCfg_SenseMode(int channel) const
 {
 	throw UlException(ERR_CONFIG_NOT_SUPPORTED);
 }
