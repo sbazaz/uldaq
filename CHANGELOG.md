@@ -13,7 +13,7 @@ All notable changes to the UL for Linux project will be documented in this file.
   
 ### Changed
 - The FPGA folder and its content have been removed. The FPGA images have been embedded in the library file.
-- To address the fork operation issue which is explained [here](http://libusb.sourceforge.net/api-1.0/libusb_caveats.html), libusb will no longer be initialized when the uldaq library is loaded. Instead, libusb is initialized when the first uldaq function is invoked. This change allows users to initialize libusb in the child process by invoking the first uldaq function after a fork() call. 
+- To address the libusb fork operation issue which is explained [here](http://libusb.sourceforge.net/api-1.0/libusb_caveats.html), libusb will no longer be initialized when the uldaq library is loaded. Instead, libusb is initialized when the first uldaq function is invoked. This change allows users to initialize libusb in the child process by invoking the first uldaq function after a fork() call. 
 
 ### Removed
 - none
