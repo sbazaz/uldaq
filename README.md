@@ -65,7 +65,7 @@ Building the **uldaq** package requires C/C++ compilers, make tool, and the deve
 3. Run the following commands to build and install the library:
 
 ```
-  $ cd libuldaq-1.2.0
+  $ cd libuldaq-1.2.1_beta2
   $ ./configure && make
   $ sudo make install
 ```
